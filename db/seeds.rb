@@ -14,6 +14,14 @@ client1 = Client.create(
   email_address: "lucas@lucas.com"
 )
 
+client2 = Client.create(
+  designation: "Josh",
+  address: "14, rue de la Piscine, 00000 Ville, France",
+  vat_number: "FR00000000000",
+  phone_number: "+33600000000",
+  email_address: "josh@josh.com"
+)
+
 puts "Creating invoices…"
 invoice1 = Invoice.create(
   number: next_invoice_num += 1,

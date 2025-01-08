@@ -5,3 +5,6 @@
     <%= link_to "#{invoice.number} - #{invoice.client.designation}", invoice_path(invoice) %>
   </div>
 <% end %>
+
+
+<%= link_to "New invoice", new_invoice_path %>
