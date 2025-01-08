@@ -10,46 +10,45 @@
 </div>
 
 <div>
-  RECHNUNG Nr. <%= @invoice.number %>
-  Datum: <%= @invoice.date %>
-  Lehrtätigkeit im Fach: X
-  Abrechnungsmonat: X
+  <h3>RECHNUNG Nr. <%= @invoice.number %></h3>
+  <div>Datum: <%= @invoice.date %></div>
+  <div>Lehrtätigkeit im Fach: X</div>
 </div>
 
-<table>
-  <thead>
-    <th>Datum</th>
-    <th>Beschreibung</th>
-    <th class="align-right">Anzahl</th>
-    <th class="align-right">Einzelpreis</th>
-    <th class="align-right">Gesamtpreis</th>
-    <th class="no-print">Actions</th>
-  </thead>
-  <tbody>
-    <% @invoice.invoice_items.each do |item| %>
-      <tr>
-        <td><%= item.date %></td>
-        <td><%= item.name %></td>
-        <td class="align-right"><%= item.quantity %></td>
-        <td class="align-right"><%= number_to_currency(item.unit_price, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></td>
-        <td class="align-right"><%= number_to_currency(item.total_price, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></td>
-        <td class="no-print"><%= link_to "Delete" %></td>
-      </tr>
-    <% end %>
-    <tr class="no-print table-form">
-      <%= form_for [@invoice, @invoice_item] do |f| %>
-        <td><%= f.date_field :date %></td>
+<%= form_for [@invoice, @invoice_item] do |f| %>
+  <table>
+    <thead>
+      <th>Datum</th>
+      <th>Beschreibung</th>
+      <th class="align-right">Anzahl</th>
+      <th class="align-right">Einzelpreis</th>
+      <th class="align-right">Gesamtpreis</th>
+      <th class="no-print">Actions</th>
+    </thead>
+    <tbody>
+      <% @invoice.invoice_items.each do |item| %>
+        <tr>
+          <td><%= item.date %></td>
+          <td><%= item.name %></td>
+          <td class="align-right"><%= item.quantity %></td>
+          <td class="align-right"><%= number_to_currency(item.unit_price, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></td>
+          <td class="align-right"><%= number_to_currency(item.total_price, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></td>
+          <td class="no-print"><%= link_to "Delete", invoice_item_path(item), data: { turbo_method: :delete } %></td>
+        </tr>
+      <% end %>
+      <tr class="no-print table-form">
+        <td><%= f.date_field :date, value: Date.today %></td>
         <td><%= f.text_field :name %></td>
         <td><%= f.number_field :quantity %></td>
         <td><%= f.number_field :unit_price %></td>
         <td class="align-right"><%= number_to_currency(0, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></td>
         <td class="no-print"><%= f.submit "Add" %></td>
-      <% end %>
-    </tr>
-  </tbody>
-</table>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
 
-<h3>Endsumme: <%= number_to_currency(@invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></h3>
+<h3 class="align-right">Rechnungsbetrag: <%= number_to_currency(@invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></h3>
 
 <div>
   Der ausgewiesene Betrag enthält keine Umsatzsteuer. Umsatzsteuerbefreiung gemäß § 4 Nummer 21 b

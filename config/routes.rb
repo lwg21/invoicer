@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   resources :invoices, only: [ :index, :show, :new, :create ] do
     resources :invoice_items, only: [ :create ]
   end
+  resources :invoice_items, only: [ :destroy ]
 end
