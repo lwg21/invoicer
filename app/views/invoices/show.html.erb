@@ -1,0 +1,68 @@
+<div>
+  Jane Doe
+  Anschrift: Teststr. 10, 2. Aufgang 6. Stock, Potsdam
+  Telefon: 0100000000 E-Mail: jane@doe.com
+</div>
+
+<div>
+  <%= @invoice.client.designation %>
+  <%= @invoice.client.address %>
+</div>
+
+<div>
+  RECHNUNG Nr. <%= @invoice.number %>
+  Datum: <%= @invoice.date %>
+  Lehrtätigkeit im Fach: X
+  Abrechnungsmonat: X
+</div>
+
+<table>
+  <thead>
+    <th>Datum</th>
+    <th>Beschreibung</th>
+    <th class="align-right">Anzahl</th>
+    <th class="align-right">Einzelpreis</th>
+    <th class="align-right">Gesamtpreis</th>
+    <th class="no-print">Actions</th>
+  </thead>
+  <tbody>
+    <% @invoice.invoice_items.each do |item| %>
+      <tr>
+        <td><%= item.date %></td>
+        <td><%= item.name %></td>
+        <td class="align-right"><%= item.quantity %></td>
+        <td class="align-right"><%= number_to_currency(item.unit_price, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></td>
+        <td class="align-right"><%= number_to_currency(item.total_price, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></td>
+        <td class="no-print"><%= link_to "Delete" %></td>
+      </tr>
+    <% end %>
+    <tr class="no-print table-form">
+      <%= form_for [@invoice, @invoice_item] do |f| %>
+        <td><%= f.date_field :date %></td>
+        <td><%= f.text_field :name %></td>
+        <td><%= f.number_field :quantity %></td>
+        <td><%= f.number_field :unit_price %></td>
+        <td class="align-right"><%= number_to_currency(0, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></td>
+        <td class="no-print"><%= f.submit "Add" %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Endsumme: <%= number_to_currency(@invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></h3>
+
+<div>
+  Der ausgewiesene Betrag enthält keine Umsatzsteuer. Umsatzsteuerbefreiung gemäß § 4 Nummer 21 b
+  Umsatzsteuergesetz. Ich bitte Sie den Gesamtbetrag auf mein unten angegebenes Konto zu überweisen.
+  Bitte geben Sie die Rechnungsnummer als Verwendungszweck an.
+</div>
+<table>
+  <tbody>
+    <td>Gerichsstand: XXXXXX</td>
+    <td>Steuer-Nr.: XX XXX XXXXX</td>
+    <td>IBAN: XXXX XXXX XXXX XXXX XXXX XX BIC: XXXXXXXXXXX Xbank</td>
+  </tbody>
+</table>
+
+<button class="no-print" onclick="window.print()" data-turbo-confirm="Are you sure?">Print</button>
+<%= link_to "Back to invoices", root_path, class: "no-print" %>

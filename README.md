@@ -23,3 +23,8 @@ Things you may want to cover:
 - Stats per month/quarter/year-to-date based on Abrechnungsmonat
 - Optional: by client
 - Optional: basic tax estimation (20%)
+
+
+# IDEAS
+
+- Add alert when invoice spans multiple months/years?
