@@ -1,7 +1,7 @@
 <h2>Invoices</h2>
 
 <% @invoices.each do |invoice| %>
-  <div>
+  <div class="debug-grey">
     <%= link_to "#{invoice.client.designation} - #{invoice.number ? invoice.number : 'DRAFT'}", invoice_path(invoice) %>
   </div>
 <% end %>

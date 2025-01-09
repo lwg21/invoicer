@@ -50,3 +50,7 @@ table th {
   border: none;
   padding: 5px;
 }
+
+.debug-grey {
+  background-color: lightgrey;
+}
