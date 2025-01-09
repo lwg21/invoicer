@@ -1,16 +1,18 @@
 <div>
-  Jane Doe
-  Anschrift: Teststr. 10, 2. Aufgang 6. Stock, Potsdam
-  Telefon: 0100000000 E-Mail: jane@doe.com
+  <div>Jane Doe</div>
+  <div>Anschrift: Teststr. 10, 2. Aufgang 6. Stock, Potsdam</div>
+  <div>Telefon: 0100000000 E-Mail: jane@doe.com</div>
 </div>
 
 <div>
-  <%= @invoice.client.designation %>
-  <%= @invoice.client.address %>
+  <div><%= @client.designation %></div>
+  <div><%= @client.address_line1 %></div>
+  <div><%= @client.address_line2 %></div>
+  <div><%= "#{@client.city} #{@client.country}" %></div>
 </div>
 
 <div>
-  <h3>RECHNUNG Nr. <%= @invoice.number %></h3>
+  <h3>RECHNUNG Nr. <%= @invoice.number ? @invoice.number : "XX" %></h3>
   <div>Datum: <%= @invoice.date %></div>
   <div>Lehrtätigkeit im Fach: X</div>
 </div>

@@ -13,7 +13,11 @@
 ActiveRecord::Schema[8.0].define(version: 2025_01_08_095101) do
   create_table "clients", force: :cascade do |t|
     t.string "designation"
-    t.string "address"
+    t.string "address_line1"
+    t.string "address_line2"
+    t.string "city"
+    t.string "postal_code"
+    t.string "country"
     t.string "vat_number"
     t.string "phone_number"
     t.string "email_address"

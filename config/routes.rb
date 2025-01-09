@@ -15,4 +15,5 @@ Rails.application.routes.draw do
     resources :invoice_items, only: [ :create ]
   end
   resources :invoice_items, only: [ :destroy ]
+  resources :clients, only: [ :index, :new, :create ]
 end

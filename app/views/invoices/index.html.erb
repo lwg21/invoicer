@@ -2,7 +2,7 @@
 
 <% @invoices.each do |invoice| %>
   <div>
-    <%= link_to "#{invoice.number} - #{invoice.client.designation}", invoice_path(invoice) %>
+    <%= link_to "#{invoice.client.designation} - #{invoice.number ? invoice.number : 'DRAFT'}", invoice_path(invoice) %>
   </div>
 <% end %>
 
