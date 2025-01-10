@@ -1,5 +1,11 @@
 <nav class="no-print debug-grey">
-  <%= link_to "Clients", clients_path %>
-  <%= link_to "Invoices", invoices_path %>
-  <%= link_to "Statistics", root_path %>
+  <% if authenticated? %>
+    <%= link_to "Clients", clients_path %>
+    <%= link_to "Invoices", invoices_path %>
+    <%= link_to "Statistics", root_path %>
+    <%= link_to "Logout", session_path, data: { turbo_method: :delete } %>
+    <div>Logged in as <%= Current.user.email_address %></div>
+  <% else %>
+    <%= link_to "Login", new_session_path %>
+  <% end %>
 </nav>
