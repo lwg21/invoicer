@@ -22,5 +22,7 @@ Rails.application.routes.draw do
     resources :invoice_items, only: [ :create ]
     member { patch "issue" }
   end
-  resources :invoice_items, only: [ :destroy ]
+  resources :invoice_items, only: [ :destroy ] do
+    member { post "duplicate" }
+  end
 end

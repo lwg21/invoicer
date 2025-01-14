@@ -52,7 +52,7 @@ client2 = Client.create(
   email_address: "josh@josh.com"
 )
 
-client2 = Client.create(
+client3 = Client.create(
   designation: "Beatrice",
   address_line1: "45 Townstreet",
   postal_code: "00000",
@@ -63,8 +63,39 @@ client2 = Client.create(
   email_address: "b@b.com"
 )
 
-client2 = Client.create(
+client4 = Client.create(
   designation: "Anna",
+  address_line1: "17, rue de du Trèfle",
+  postal_code: "00000",
+  city: "Ville",
+  country: "France",
+  vat_number: "FR00000000000",
+  phone_number: "+33600000000",
+  email_address: "an@na.com"
+)
+
+client5 = Client.create(
+  designation: "George",
+  address_line1: "17, rue de du Trèfle",
+  postal_code: "00000",
+  city: "Ville",
+  country: "France",
+  vat_number: "FR00000000000",
+  phone_number: "+33600000000",
+  email_address: "g@g.com"
+)
+client6 = Client.create(
+  designation: "Hannah",
+  address_line1: "17, rue de du Trèfle",
+  postal_code: "00000",
+  city: "Ville",
+  country: "France",
+  vat_number: "FR00000000000",
+  phone_number: "+33600000000",
+  email_address: "an@na.com"
+)
+client7 = Client.create(
+  designation: "Sam",
   address_line1: "17, rue de du Trèfle",
   postal_code: "00000",
   city: "Ville",

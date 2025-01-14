@@ -1,6 +1,10 @@
 <h2>Invoices</h2>
 
-<h3>Drafts</h3>
+<%= link_to "New invoice", clients_path %>
+
+<% if @drafts.any? %>
+  <h3>Drafts</h3>
+<% end %>
 
 <% @drafts.each do |invoice| %>
   <div class="debug-grey">
@@ -9,10 +13,13 @@
   </div>
 <% end %>
 
-<h3>Issued invoices</h3>
+<% if @issued_invoices.any? %>
+  <h3>Issued invoices</h3>
+<% end %>
 
 <% @issued_invoices.each do |invoice| %>
   <div class="debug-grey">
     <%= link_to "#{invoice.client.designation} - #{invoice.number}", invoice_path(invoice) %>
+    <%= number_to_currency(invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %>
   </div>
 <% end %>

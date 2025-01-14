@@ -14,6 +14,12 @@ class InvoiceItemsController < ApplicationController
     redirect_to invoice_path(@invoice_item.invoice)
   end
 
+  def duplicate
+    @invoice_item = InvoiceItem.find(params[:id])
+    @invoice_item.dup.save
+    redirect_to invoice_path(@invoice_item.invoice)
+  end
+
   private
 
   def invoice_item_params

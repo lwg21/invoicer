@@ -1,23 +1,24 @@
 <% if @invoice.issued? %>
-  <button onclick="window.print()">Print</button>
+  <button onclick="window.print()" class="no-print">Print</button>
 <% else %>
   <%= link_to "Issue", issue_invoice_path(@invoice), class: "no-print", data: { turbo_method: :patch, turbo_confirm: "Are you sure?" } %>
   <%= link_to "Delete draft", invoice_path(@invoice), class: "no-print", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
 <% end %>
 <%= link_to "Back to invoices", root_path, class: "no-print" %>
 
-<div class="debug-grey">
-  <div><%= Current.user.company.designation %></div>
-  <div><%= [Current.user.company.address_line1, Current.user.company.address_line2].compact_blank.join(", ") %></div>
-  <div>Telefon: <%= Current.user.company.phone_number %></div>
-  <div>E-Mail: <%= Current.user.company.email_address %></div>
-</div>
-
-<div class="debug-grey">
-  <div><%= @client.designation %></div>
-  <div><%= @client.address_line1 %></div>
-  <div><%= @client.address_line2 %></div>
-  <div><%= "#{@client.city} #{@client.country}" %></div>
+<div id="invoice-header">
+  <div class="debug-grey">
+    <div><%= @client.designation %></div>
+    <div><%= [@client.address_line1, @client.address_line2].compact_blank.join(", ") %></div>
+    <div><%= "#{@client.postal_code} #{@client.city}" %></div>
+    <div><%= @client.country %></div>
+  </div>
+  <div class="debug-grey align-right">
+    <div><%= Current.user.company.designation %></div>
+    <div><%= [Current.user.company.address_line1, Current.user.company.address_line2].compact_blank.join(", ") %></div>
+    <div>Telefon: <%= Current.user.company.phone_number %></div>
+    <div>E-Mail: <%= Current.user.company.email_address %></div>
+  </div>
 </div>
 
 <div>
@@ -52,7 +53,14 @@
           <td class="align-right"><%= number_to_currency(item.unit_price, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></td>
           <td class="align-right"><%= number_to_currency(item.total_price, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></td>
           <% unless @invoice.issued? %>
-            <td><%= link_to "Delete", invoice_item_path(item), data: { turbo_method: :delete } %></td>
+            <td>
+              <%= link_to invoice_item_path(item), data: { turbo_method: :delete } do %>
+                <%= image_tag "trash.svg" %>
+              <% end %>
+              <%= link_to duplicate_invoice_item_path(item), data: { turbo_method: :post } do %>
+                <%= image_tag "copy.svg" %>
+              <% end %>
+            </td>
           <% end %>
         </tr>
       <% end %>

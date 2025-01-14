@@ -1,0 +1,15 @@
+.align-right {
+  text-align: right;
+}
+
+.debug-grey {
+  background-color: lightgrey;
+}
+
+div {
+  margin-bottom: 10px;
+}
+
+.flex {
+  display: flex;
+}
