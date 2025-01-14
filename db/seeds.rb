@@ -2,6 +2,13 @@ puts "Destroying all records…"
 InvoiceItem.destroy_all
 Invoice.destroy_all
 Client.destroy_all
+User.destroy_all
+
+puts "Creating clients…"
+user1 = User.create(
+  email_address: "julia@julia.com",
+  password: "123456"
+)
 
 next_invoice_num = 0
 

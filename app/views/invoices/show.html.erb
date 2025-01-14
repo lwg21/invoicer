@@ -1,7 +1,11 @@
+<button class="no-print" onclick="window.print()" data-turbo-confirm="Are you sure?">Print</button>
+<%= link_to "Back to invoices", root_path, class: "no-print" %>
+
 <div class="debug-grey">
-  <div>Jane Doe</div>
-  <div>Anschrift: Teststr. 10, 2. Aufgang 6. Stock, Potsdam</div>
-  <div>Telefon: 0100000000 E-Mail: jane@doe.com</div>
+  <div><%= Current.user.company.designation %></div>
+  <div><%= [Current.user.company.address_line1, Current.user.company.address_line2].compact_blank.join(", ") %></div>
+  <div>Telefon: <%= Current.user.company.phone_number %></div>
+  <div>E-Mail: <%= Current.user.company.email_address %></div>
 </div>
 
 <div class="debug-grey">
@@ -69,6 +73,3 @@
     <td>Steuer-Nr.: XX XXX XXXXX</td>
   </tbody>
 </table>
-
-<button class="no-print" onclick="window.print()" data-turbo-confirm="Are you sure?">Print</button>
-<%= link_to "Back to invoices", root_path, class: "no-print" %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_09_094625) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_10_114119) do
   create_table "clients", force: :cascade do |t|
     t.string "designation"
     t.string "address_line1"
@@ -23,6 +23,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_09_094625) do
     t.string "email_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "designation"
+    t.string "address_line1"
+    t.string "address_line2"
+    t.string "city"
+    t.string "postal_code"
+    t.string "country"
+    t.string "vat_number"
+    t.string "phone_number"
+    t.string "email_address"
+    t.string "iban"
+    t.string "bic"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_companies_on_user_id"
   end
 
   create_table "invoice_items", force: :cascade do |t|
