@@ -11,5 +11,6 @@
     <div><%= client.country %></div>
     <div><%= client.vat_number %></div>
     <%= link_to "Edit", edit_client_path(client) %>
+    <%= link_to "Invoice #{client.designation}", invoice_client_path(client), data: { turbo_method: :post } %>
   </div>
 <% end %>

@@ -15,8 +15,10 @@ Rails.application.routes.draw do
   # Application routes
   get "profile", to: "companies#profile"
   resources :companies, only: [ :edit, :update ]
-  resources :clients, only: [ :index, :new, :create, :edit, :update ]
-  resources :invoices, only: [ :index, :show, :new, :create ] do
+  resources :clients, only: [ :index, :new, :create, :edit, :update ] do
+    member { post "invoice" }
+  end
+  resources :invoices, only: [ :index, :show ] do
     resources :invoice_items, only: [ :create ]
     member { patch "issue" }
   end

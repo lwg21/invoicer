@@ -29,6 +29,16 @@ class ClientsController < ApplicationController
     end
   end
 
+  def invoice
+    @client = Client.find(params[:id])
+    @invoice = Invoice.new(client: @client, company: Current.user.company)
+    if @invoice.save
+      redirect_to invoice_path(@invoice)
+    else
+      redirect_back_or_to clients_path
+    end
+  end
+
   private
 
   def client_params
