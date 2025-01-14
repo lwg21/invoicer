@@ -17,6 +17,10 @@ class CompaniesController < ApplicationController
     end
   end
 
+  def statistics
+    @total = Invoice.all.map(&:total).sum
+  end
+
   private
 
   def company_params

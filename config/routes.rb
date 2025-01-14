@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
   # Application routes
   get "profile", to: "companies#profile"
+  get "statistics", to: "companies#statistics"
   resources :companies, only: [ :edit, :update ]
   resources :clients, only: [ :index, :new, :create, :edit, :update ] do
     member { post "invoice" }
