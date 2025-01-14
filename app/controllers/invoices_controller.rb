@@ -16,9 +16,11 @@ class InvoicesController < ApplicationController
 
   def create
     @invoice = Invoice.new(invoice_params)
+    @invoice.company = Current.user.company
     if @invoice.save
-      redirect_to invoice_path(@invoice), notice: "Item added successfully."
+      redirect_to invoice_path(@invoice)
     else
+      raise
       render :new, status: :unprocessable_entity
     end
   end

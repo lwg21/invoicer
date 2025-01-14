@@ -46,7 +46,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_14_091304) do
   end
 
   create_table "invoice_items", force: :cascade do |t|
-    t.integer "invoice_id"
+    t.integer "invoice_id", null: false
     t.string "name"
     t.string "description"
     t.date "date"
@@ -58,7 +58,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_14_091304) do
   end
 
   create_table "invoices", force: :cascade do |t|
-    t.string "number"
+    t.integer "number"
     t.string "date"
     t.boolean "issued", default: false, null: false
     t.integer "client_id", null: false
@@ -87,6 +87,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_14_091304) do
   end
 
   add_foreign_key "companies", "users"
+  add_foreign_key "invoice_items", "invoices"
   add_foreign_key "invoices", "clients"
   add_foreign_key "invoices", "companies"
   add_foreign_key "sessions", "users"

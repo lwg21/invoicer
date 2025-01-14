@@ -9,5 +9,16 @@ class Invoice < ApplicationRecord
 
   def issue!
     self.update(issued: true)
+    self.assign_number!
+    self.assign_date!
+  end
+
+  def assign_number!
+    last_number = self.company.invoices.maximum(:number) || 0
+    self.update(number: last_number + 1)
+  end
+
+  def assign_date!
+    self.update(date: Date.today)
   end
 end
