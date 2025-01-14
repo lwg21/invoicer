@@ -23,6 +23,12 @@ class InvoicesController < ApplicationController
     end
   end
 
+  def issue
+    @invoice = Invoice.find(params[:id])
+    @invoice.issue!
+    redirect_to invoice_path(@invoice)
+  end
+
   private
 
   def invoice_params

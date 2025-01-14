@@ -14,12 +14,12 @@
       <%= f.text_field :address_line2 %>
     </div>
     <div>
-      <%= f.label :city %>
-      <%= f.text_field :city %>
-    </div>
-    <div>
       <%= f.label :postal_code %>
       <%= f.text_field :postal_code %>
+    </div>
+    <div>
+      <%= f.label :city %>
+      <%= f.text_field :city %>
     </div>
     <div>
       <%= f.label :country %>
@@ -43,6 +43,10 @@
     </div>
     <div>
       <%= f.label :bic, "BIC" %>
+      <%= f.text_field :bic %>
+    </div>
+    <div>
+      <%= f.label :jurisdiction, "Gerichtstand" %>
       <%= f.text_field :bic %>
     </div>
     <div>

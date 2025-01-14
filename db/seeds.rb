@@ -10,6 +10,23 @@ user1 = User.create(
   password: "123456"
 )
 
+company_details = {
+  designation: "Julia Julia",
+  address_line1: "Teststr. 99",
+  address_line2: "1. Aufgang, 1. Stock",
+  city: "Hamburg",
+  postal_code: "20000",
+  country: "Germany",
+  vat_number: "12 345 67899",
+  phone_number: "+49 123456789",
+  email_address: "julia@julia.com",
+  iban: "DE00 0000 0000 0000 0000 00",
+  bic: "XXXXXXXXXXX",
+  jurisdiction: "Hamburg"
+}
+
+user1.company.update(company_details)
+
 next_invoice_num = 0
 
 puts "Creating clients…"
@@ -39,7 +56,8 @@ puts "Creating invoices…"
 invoice1 = Invoice.create(
   number: next_invoice_num += 1,
   date: Date.today,
-  client: client1
+  client: client1,
+  company: User.last.company
 )
 
 item1 = InvoiceItem.create(
@@ -79,5 +97,6 @@ item3 = InvoiceItem.create(
 invoice2 = Invoice.create(
   number: next_invoice_num += 1,
   date: Date.today,
-  client: client1
+  client: client1,
+  company: User.last.company
 )

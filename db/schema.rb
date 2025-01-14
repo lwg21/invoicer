@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_10_114119) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_14_091304) do
   create_table "clients", force: :cascade do |t|
     t.string "designation"
     t.string "address_line1"
@@ -26,7 +26,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_10_114119) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "user_id", null: false
     t.string "designation"
     t.string "address_line1"
     t.string "address_line2"
@@ -38,6 +38,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_10_114119) do
     t.string "email_address"
     t.string "iban"
     t.string "bic"
+    t.string "jurisdiction"
+    t.integer "next_available_number", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_companies_on_user_id"
@@ -58,10 +60,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_10_114119) do
   create_table "invoices", force: :cascade do |t|
     t.string "number"
     t.string "date"
-    t.integer "client_id"
+    t.boolean "issued", default: false, null: false
+    t.integer "client_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "company_id", null: false
     t.index ["client_id"], name: "index_invoices_on_client_id"
+    t.index ["company_id"], name: "index_invoices_on_company_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -81,5 +86,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_10_114119) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "companies", "users"
+  add_foreign_key "invoices", "clients"
+  add_foreign_key "invoices", "companies"
   add_foreign_key "sessions", "users"
 end

@@ -1,7 +1,7 @@
 class CreateInvoiceItems < ActiveRecord::Migration[8.0]
   def change
     create_table :invoice_items do |t|
-      t.references :invoice
+      t.references :invoice, null: false, foreign_key: true
       t.string :name
       t.string :description
       t.date :date

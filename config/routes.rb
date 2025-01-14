@@ -14,10 +14,11 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
   # Application routes
   get "profile", to: "companies#profile"
-  resources :companies, only: [:edit, :update]
+  resources :companies, only: [ :edit, :update ]
   resources :clients, only: [ :index, :new, :create, :edit, :update ]
   resources :invoices, only: [ :index, :show, :new, :create ] do
     resources :invoice_items, only: [ :create ]
+    member { patch "issue" }
   end
   resources :invoice_items, only: [ :destroy ]
 end

@@ -1,4 +1,8 @@
-<button class="no-print" onclick="window.print()" data-turbo-confirm="Are you sure?">Print</button>
+<% if @invoice.issued? %>
+  <button onclick="window.print()">Print</button>
+<% else %>
+  <%= link_to "Issue", issue_invoice_path(@invoice), class: "no-print", data: { turbo_method: :patch, turbo_confirm: "Are you sure?" } %>
+<% end %>
 <%= link_to "Back to invoices", root_path, class: "no-print" %>
 
 <div class="debug-grey">
@@ -16,9 +20,14 @@
 </div>
 
 <div>
-  <h3>RECHNUNG Nr. <%= @invoice.number ? @invoice.number : "XX" %></h3>
-  <div>Datum: <%= @invoice.date %></div>
-  <div>Lehrtätigkeit im Fach: X</div>
+
+  <% if @invoice.issued? %>
+    <h3>RECHNUNG Nr. <%= @invoice.number %></h3>
+    <div>Datum: <%= @invoice.date %></div>
+  <% else %>
+    <h3>RECHNUNG DRAFT (invoice not yet issued)</h3>
+    <div>Datum: …</div>
+  <% end %>
 </div>
 
 <%= form_for [@invoice, @invoice_item] do |f| %>
@@ -29,7 +38,9 @@
       <th class="align-right">Anzahl</th>
       <th class="align-right">Einzelpreis</th>
       <th class="align-right">Gesamtpreis</th>
-      <th class="no-print">Actions</th>
+      <% unless @invoice.issued? %>
+        <th>Actions</th>
+      <% end %>
     </thead>
     <tbody>
       <% @invoice.invoice_items.each do |item| %>
@@ -39,23 +50,30 @@
           <td class="align-right"><%= item.quantity %></td>
           <td class="align-right"><%= number_to_currency(item.unit_price, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></td>
           <td class="align-right"><%= number_to_currency(item.total_price, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></td>
-          <td class="no-print"><%= link_to "Delete", invoice_item_path(item), data: { turbo_method: :delete } %></td>
+          <% unless @invoice.issued? %>
+            <td><%= link_to "Delete", invoice_item_path(item), data: { turbo_method: :delete } %></td>
+          <% end %>
         </tr>
       <% end %>
-      <tr class="no-print table-form">
-        <td><%= f.text_field :name %></td>
-        <td><%= f.date_field :date, value: Date.today %></td>
-        <td><%= f.number_field :quantity %></td>
-        <td><%= f.number_field :unit_price %></td>
-        <td class="align-right"><%= number_to_currency(0, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></td>
-        <td class="no-print"><%= f.submit "Add" %></td>
-      </tr>
+      <% unless @invoice.issued? %>
+        <tr class="no-print table-form">
+          <td><%= f.text_field :name %></td>
+          <td><%= f.date_field :date %></td>
+          <td><%= f.number_field :quantity %></td>
+          <td><%= f.number_field :unit_price %></td>
+          <td class="align-right"><%= number_to_currency(0, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></td>
+          <td><%= f.submit "Add" %></td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 <% end %>
 
 <h3 class="align-right">Rechnungsbetrag: <%= number_to_currency(@invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></h3>
 
+<div>
+  Lehrtätigkeit im Fach: X
+</div>
 <div>
   Der ausgewiesene Betrag enthält keine Umsatzsteuer. Umsatzsteuerbefreiung gemäß § 4 Nummer 21 b
   Umsatzsteuergesetz.
@@ -65,11 +83,11 @@
   Bitte geben Sie die Rechnungsnummer als Verwendungszweck an.
 </div>
 <div>
-  IBAN: XXXX XXXX XXXX XXXX XXXX XX BIC: XXXXXXXXXXX Xbank
+  IBAN: <%= @invoice.company.iban %> BIC: <%= @invoice.company.bic %>
 </div>
 <table>
   <tbody>
-    <td>Gerichsstand: XXXXXX</td>
-    <td>Steuer-Nr.: XX XXX XXXXX</td>
+    <td>Gerichsstand: <%= @invoice.company.jurisdiction %></td>
+    <td>Steuer-Nr.: <%= @invoice.company.vat_number %></td>
   </tbody>
 </table>
