@@ -52,6 +52,28 @@ client2 = Client.create(
   email_address: "josh@josh.com"
 )
 
+client2 = Client.create(
+  designation: "Beatrice",
+  address_line1: "45 Townstreet",
+  postal_code: "00000",
+  city: "London",
+  country: "Great-Britain",
+  vat_number: "GB00000000000",
+  phone_number: "+41600000000",
+  email_address: "b@b.com"
+)
+
+client2 = Client.create(
+  designation: "Anna",
+  address_line1: "17, rue de du Trèfle",
+  postal_code: "00000",
+  city: "Ville",
+  country: "France",
+  vat_number: "FR00000000000",
+  phone_number: "+33600000000",
+  email_address: "an@na.com"
+)
+
 puts "Creating invoices…"
 invoice1 = Invoice.create(
   number: next_invoice_num += 1,

@@ -1,6 +1,8 @@
 class InvoicesController < ApplicationController
   def index
-    @invoices = Invoice.all
+    invoices = Current.user.company.invoices
+    @drafts = invoices.where(issued: false).order(:created_at)
+    @issued_invoices = invoices.where(issued: true).order(:number)
   end
 
   def show
@@ -29,6 +31,12 @@ class InvoicesController < ApplicationController
     @invoice = Invoice.find(params[:id])
     @invoice.issue!
     redirect_to invoice_path(@invoice)
+  end
+
+  def destroy
+    @invoice = Invoice.find(params[:id])
+    @invoice.destroy
+    redirect_to invoices_path, notice: "Invoice was successfully destroyed."
   end
 
   private

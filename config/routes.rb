@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   resources :clients, only: [ :index, :new, :create, :edit, :update ] do
     member { post "invoice" }
   end
-  resources :invoices, only: [ :index, :show ] do
+  resources :invoices, only: [ :index, :show, :destroy ] do
     resources :invoice_items, only: [ :create ]
     member { patch "issue" }
   end
