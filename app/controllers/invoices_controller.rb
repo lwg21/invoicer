@@ -8,7 +8,11 @@ class InvoicesController < ApplicationController
   def show
     @invoice = Invoice.find(params[:id])
     @client = @invoice.client
-    @invoice_item = InvoiceItem.new
+    if params[:edit_item]
+      @invoice_item = InvoiceItem.find(params[:edit_item])
+    else
+      @invoice_item = InvoiceItem.new
+    end
   end
 
   # def new

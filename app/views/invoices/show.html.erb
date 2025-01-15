@@ -21,18 +21,33 @@
   </div>
 </div>
 
-<div>
+<%= turbo_frame_tag dom_id(@invoice) do %>
 
-  <% if @invoice.issued? %>
-    <h3>RECHNUNG Nr. <%= @invoice.number %></h3>
-    <div>Datum: <%= @invoice.date %></div>
-  <% else %>
-    <h3>RECHNUNG DRAFT (invoice not yet issued)</h3>
-    <div>Datum: …</div>
+  <% unless @invoice.issued? %>
+    <%= form_for (params[:edit_item] ? @invoice_item : [@invoice, @invoice_item]) do |f| %>
+      <div>Description: <%= f.text_field :name %></div>
+      <div>Date: <%= f.date_field :date %></div>
+      <div>Amount: <%= f.number_field :quantity %></div>
+      <div>Price: <%= f.number_field :unit_price %></div>
+      <div>Total: <%= number_to_currency(0, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></div>
+      <% if params[:edit_item] %>
+        <div><%= f.submit "Edit" %> <%= link_to "Cancel", invoice_path(@invoice) %></div>
+      <% else %>
+        <div><%= f.submit "Add" %></div>
+      <% end %>
+    <% end %>
   <% end %>
-</div>
 
-<%= form_for [@invoice, @invoice_item] do |f| %>
+  <div>
+    <% if @invoice.issued? %>
+      <h3>RECHNUNG Nr. <%= @invoice.number %></h3>
+      <h3>Datum: <%= @invoice.date %></h3>
+    <% else %>
+      <h3>RECHNUNG DRAFT (invoice not yet issued)</h3>
+      <h3>Datum: …</h3>
+    <% end %>
+  </div>
+
   <table>
     <thead>
       <th>#</th>
@@ -65,6 +80,9 @@
               <%= link_to duplicate_invoice_item_path(item), data: { turbo_method: :post } do %>
                 <%= image_tag "copy.svg" %>
               <% end %>
+              <%= link_to invoice_path(@invoice, edit_item: item) do %>
+                <%= image_tag "edit.svg" %>
+              <% end %>
               <%= link_to invoice_item_path(item), data: { turbo_method: :delete } do %>
                 <%= image_tag "trash.svg" %>
               <% end %>
@@ -72,22 +90,12 @@
           <% end %>
         </tr>
       <% end %>
-      <% unless @invoice.issued? %>
-        <tr class="no-print table-form">
-          <td></td>
-          <td><%= f.text_field :name %></td>
-          <td><%= f.date_field :date %></td>
-          <td><%= f.number_field :quantity %></td>
-          <td><%= f.number_field :unit_price %></td>
-          <td class="align-right"><%= number_to_currency(0, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></td>
-          <td><%= f.submit "Add" %></td>
-        </tr>
-      <% end %>
     </tbody>
   </table>
+
+  <h3 class="align-right">Rechnungsbetrag: <%= number_to_currency(@invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></h3>
 <% end %>
 
-<h3 class="align-right">Rechnungsbetrag: <%= number_to_currency(@invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></h3>
 
 <div>
   Lehrtätigkeit im Fach: X
