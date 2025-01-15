@@ -52,6 +52,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_14_091304) do
     t.date "date"
     t.integer "quantity"
     t.decimal "unit_price"
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["invoice_id"], name: "index_invoice_items_on_invoice_id"

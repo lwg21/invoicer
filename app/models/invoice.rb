@@ -11,6 +11,7 @@ class Invoice < ApplicationRecord
     self.update(issued: true)
     self.assign_number!
     self.assign_date!
+    # self.set_items_accounting_date!
   end
 
   def assign_number!
@@ -21,4 +22,14 @@ class Invoice < ApplicationRecord
   def assign_date!
     self.update(date: Date.today)
   end
+
+  def reorder_items!
+    invoice_items.order(position: :asc).each_with_index do |item, index|
+      item.update(position: index + 1)
+    end
+  end
+
+  # def set_items_accounting_date!
+  #   invoice_items.each { |item| item.set_accounting_date! }
+  # end
 end

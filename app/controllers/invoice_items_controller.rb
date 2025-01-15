@@ -20,6 +20,24 @@ class InvoiceItemsController < ApplicationController
     redirect_to invoice_path(@invoice_item.invoice)
   end
 
+  def move
+    invoice_item = InvoiceItem.find(params[:id])
+    target_position = case params[:direction]
+    when "up" then invoice_item.position - 1
+    when "down" then invoice_item.position + 1
+    end
+
+    swap_item = invoice_item.invoice.invoice_items.find_by(position: target_position)
+    return unless swap_item
+
+    InvoiceItem.transaction do
+      swap_item.update!(position: invoice_item.position)
+      invoice_item.update!(position: target_position)
+    end
+
+    redirect_to invoice_path(invoice_item.invoice)
+  end
+
   private
 
   def invoice_item_params

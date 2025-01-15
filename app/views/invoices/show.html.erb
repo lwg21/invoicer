@@ -35,6 +35,7 @@
 <%= form_for [@invoice, @invoice_item] do |f| %>
   <table>
     <thead>
+      <th>#</th>
       <th>Beschreibung</th>
       <th>Datum</th>
       <th class="align-right">Anzahl</th>
@@ -45,8 +46,9 @@
       <% end %>
     </thead>
     <tbody>
-      <% @invoice.invoice_items.each do |item| %>
+      <% @invoice.invoice_items.order(:position).each do |item| %>
         <tr>
+          <td><%= "#{item.position}." %></td>
           <td><%= item.name %></td>
           <td><%= item.date %></td>
           <td class="align-right"><%= item.quantity %></td>
@@ -54,11 +56,17 @@
           <td class="align-right"><%= number_to_currency(item.total_price, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></td>
           <% unless @invoice.issued? %>
             <td>
-              <%= link_to invoice_item_path(item), data: { turbo_method: :delete } do %>
-                <%= image_tag "trash.svg" %>
+              <%= link_to move_invoice_item_path(item, direction: "up"), data: { turbo_method: :patch } do %>
+                <%= image_tag "up.svg" %>
+              <% end %>
+              <%= link_to move_invoice_item_path(item, direction: "down"), data: { turbo_method: :patch } do %>
+                <%= image_tag "down.svg" %>
               <% end %>
               <%= link_to duplicate_invoice_item_path(item), data: { turbo_method: :post } do %>
                 <%= image_tag "copy.svg" %>
+              <% end %>
+              <%= link_to invoice_item_path(item), data: { turbo_method: :delete } do %>
+                <%= image_tag "trash.svg" %>
               <% end %>
             </td>
           <% end %>
@@ -66,6 +74,7 @@
       <% end %>
       <% unless @invoice.issued? %>
         <tr class="no-print table-form">
+          <td></td>
           <td><%= f.text_field :name %></td>
           <td><%= f.date_field :date %></td>
           <td><%= f.number_field :quantity %></td>
