@@ -1,53 +1,50 @@
-<% if @invoice.issued? %>
-  <button onclick="window.print()" class="no-print">Print</button>
-<% else %>
-  <%= link_to "Issue", issue_invoice_path(@invoice), class: "no-print", data: { turbo_method: :patch, turbo_confirm: "Are you sure?" } %>
-  <%= link_to "Delete draft", invoice_path(@invoice), class: "no-print", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-<% end %>
-<%= link_to "Back to invoices", root_path, class: "no-print" %>
-
-<div id="invoice-header">
-  <div class="debug-grey">
-    <div><%= @client.designation %></div>
-    <div><%= [@client.address_line1, @client.address_line2].compact_blank.join(", ") %></div>
-    <div><%= "#{@client.postal_code} #{@client.city}" %></div>
-    <div><%= @client.country %></div>
-  </div>
-  <div class="debug-grey align-right">
-    <div><%= Current.user.company.designation %></div>
-    <div><%= [Current.user.company.address_line1, Current.user.company.address_line2].compact_blank.join(", ") %></div>
-    <div>Telefon: <%= Current.user.company.phone_number %></div>
-    <div>E-Mail: <%= Current.user.company.email_address %></div>
-  </div>
-</div>
-
-<%= turbo_frame_tag dom_id(@invoice) do %>
-
-  <% unless @invoice.issued? %>
-    <%= form_for (params[:edit_item] ? @invoice_item : [@invoice, @invoice_item]) do |f| %>
-      <div>Description: <%= f.text_field :name %></div>
-      <div>Date: <%= f.date_field :date %></div>
-      <div>Amount: <%= f.number_field :quantity %></div>
-      <div>Price: <%= f.number_field :unit_price %></div>
-      <div>Total: <%= number_to_currency(0, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></div>
-      <% if params[:edit_item] %>
-        <div><%= f.submit "Edit" %> <%= link_to "Cancel", invoice_path(@invoice) %></div>
-      <% else %>
-        <div><%= f.submit "Add" %></div>
-      <% end %>
+  <div class="no-print debug-pink-light invoice-header">
+    <% if @invoice.issued? %>
+      <div>
+        <h2>Invoice <%= @invoice.number %> for <%= @invoice.client.designation %></h2>
+      </div>
+      <div>
+        <button onclick="window.print()" class="no-print">Print</button>
+      </div>
+    <% else %>
+      <div>
+        <h2>Invoice draft for <%= @invoice.client.designation %></h2>
+      </div>
+      <div>
+        <%= link_to "Back to invoices", root_path, class: "no-print" %>
+        <%= link_to "Delete draft", invoice_path(@invoice), class: "no-print", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+        <%= link_to "Issue", issue_invoice_path(@invoice), class: "no-print", data: { turbo_method: :patch, turbo_confirm: "Are you sure?" } %>
+      </div>
     <% end %>
-  <% end %>
+  </div>
 
   <div>
-    <% if @invoice.issued? %>
-      <h3>RECHNUNG Nr. <%= @invoice.number %></h3>
-      <h3>Datum: <%= @invoice.date %></h3>
-    <% else %>
-      <h3>RECHNUNG DRAFT (invoice not yet issued)</h3>
-      <h3>Datum: …</h3>
-    <% end %>
-  </div>
+    <div class="invoice-header">
+      <div class="debug-grey">
+        <div><%= @client.designation %></div>
+        <div><%= [@client.address_line1, @client.address_line2].compact_blank.join(", ") %></div>
+        <div><%= "#{@client.postal_code} #{@client.city}" %></div>
+        <div><%= @client.country %></div>
+      </div>
+      <div class="debug-grey">
+        <div><%= Current.user.company.designation %></div>
+        <div><%= [Current.user.company.address_line1, Current.user.company.address_line2].compact_blank.join(", ") %></div>
+        <div>Telefon: <%= Current.user.company.phone_number %></div>
+        <div>E-Mail: <%= Current.user.company.email_address %></div>
+      </div>
+    </div>
 
+    <div class="invoice-header">
+      <% if @invoice.issued? %>
+        <h3>RECHNUNG Nr. <%= @invoice.number %></h3>
+        <h3><%= @invoice.date %></h3>
+      <% else %>
+        <h3>RECHNUNG Nr. ?</h3>
+        <h3>?</h3>
+      <% end %>
+    </div>
+
+<%= turbo_frame_tag dom_id(@invoice) do %>
   <table>
     <thead>
       <th>#</th>
@@ -62,7 +59,7 @@
     </thead>
     <tbody>
       <% @invoice.invoice_items.order(:position).each do |item| %>
-        <tr>
+        <tr class="<%= 'active-item' if item.id == params[:edit_item].to_i %>">
           <td><%= "#{item.position}." %></td>
           <td><%= item.name %></td>
           <td><%= item.date %></td>
@@ -93,27 +90,44 @@
     </tbody>
   </table>
 
+  <% unless @invoice.issued? %>
+    <%= form_for (params[:edit_item] ? @invoice_item : [@invoice, @invoice_item]), html: { class: "debug-pink" } do |f| %>
+      <div>Description: <%= f.text_field :name %></div>
+      <div>Date: <%= f.date_field :date %></div>
+      <div>Amount: <%= f.number_field :quantity %></div>
+      <div>Price: <%= f.number_field :unit_price, step: '0.01' %></div>
+      <div>Total: <%= number_to_currency(@invoice_item.total_price, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></div>
+      <% if params[:edit_item] %>
+        <div><%= f.submit "Edit" %> <%= link_to "Cancel", invoice_path(@invoice) %></div>
+      <% else %>
+        <div><%= f.submit "Add" %></div>
+      <% end %>
+    <% end %>
+  <% end %>
+
   <h3 class="align-right">Rechnungsbetrag: <%= number_to_currency(@invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></h3>
+
+
+  <div>
+    Lehrtätigkeit im Fach: X
+  </div>
+  <div>
+    Der ausgewiesene Betrag enthält keine Umsatzsteuer. Umsatzsteuerbefreiung gemäß § 4 Nummer 21 b
+    Umsatzsteuergesetz.
+  </div>
+  <div>
+    Ich bitte Sie den Rechnungsbetrag auf mein unten angegebenes Konto zu überweisen.
+    Bitte geben Sie die Rechnungsnummer als Verwendungszweck an.
+  </div>
+  <div>
+    IBAN: <%= @invoice.company.iban %> BIC: <%= @invoice.company.bic %>
+  </div>
+  <table>
+    <tbody>
+      <td>Gerichsstand: <%= @invoice.company.jurisdiction %></td>
+      <td>Steuer-Nr.: <%= @invoice.company.vat_number %></td>
+    </tbody>
+  </table>
+
+  </div>
 <% end %>
-
-
-<div>
-  Lehrtätigkeit im Fach: X
-</div>
-<div>
-  Der ausgewiesene Betrag enthält keine Umsatzsteuer. Umsatzsteuerbefreiung gemäß § 4 Nummer 21 b
-  Umsatzsteuergesetz.
-</div>
-<div>
-  Ich bitte Sie den Rechnungsbetrag auf mein unten angegebenes Konto zu überweisen.
-  Bitte geben Sie die Rechnungsnummer als Verwendungszweck an.
-</div>
-<div>
-  IBAN: <%= @invoice.company.iban %> BIC: <%= @invoice.company.bic %>
-</div>
-<table>
-  <tbody>
-    <td>Gerichsstand: <%= @invoice.company.jurisdiction %></td>
-    <td>Steuer-Nr.: <%= @invoice.company.vat_number %></td>
-  </tbody>
-</table>

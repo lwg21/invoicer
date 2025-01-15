@@ -6,6 +6,14 @@
   background-color: lightgrey;
 }
 
+.debug-pink {
+  background-color: pink;
+}
+
+.debug-pink-light {
+  background-color: lightpink;
+}
+
 .flex {
   display: flex;
 }

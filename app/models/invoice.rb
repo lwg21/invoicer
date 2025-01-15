@@ -1,7 +1,7 @@
 class Invoice < ApplicationRecord
   belongs_to :client
   belongs_to :company
-  has_many :invoice_items
+  has_many :invoice_items, dependent: :destroy
 
   def total
     self.invoice_items.sum { |item| item.total_price }

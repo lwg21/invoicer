@@ -21,9 +21,14 @@ class InvoiceItemsController < ApplicationController
   end
 
   def duplicate
-    @invoice_item = InvoiceItem.find(params[:id])
-    @invoice_item.dup.save
-    redirect_to invoice_path(@invoice_item.invoice)
+    original_item = InvoiceItem.find(params[:id])
+    duplicate_item = original_item.dup
+    InvoiceItem.where(invoice: original_item.invoice)
+               .where("position > ?", original_item.position)
+               .update_all("position = position + 1")
+    duplicate_item.position = original_item.position + 1
+    duplicate_item.save
+    redirect_to invoice_path(original_item.invoice)
   end
 
   def move

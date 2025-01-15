@@ -1,4 +1,12 @@
-#invoice-header {
+.invoice-header {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+.invoice-header>*:nth-child(2) {
+  text-align: right;
+}
+
+.active-item {
+  background-color: bisque;
 }
