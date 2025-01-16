@@ -1,6 +1,12 @@
 class ClientsController < ApplicationController
   def index
-    @clients = Client.all
+    @clients = Client.all.order(designation: :asc)
+
+    #   @clients = Client
+    # .joins(:invoices)
+    # .select("clients.*, COUNT(invoices.id) AS invoices_count")
+    # .group("clients.id")
+    # .order("invoices_count DESC")
   end
 
   def new
