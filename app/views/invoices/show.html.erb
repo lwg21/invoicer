@@ -8,7 +8,10 @@
           <%= image_tag "left.svg" %>
           <span>Back to invoices</span>
         <% end %>
-        <button onclick="window.print()" class="no-print">Print</button>
+        <%= link_to "", class: "no-print", onclick: "window.print()" do %>
+          <%= image_tag "printer.svg" %>
+          <span>Print invoice</span>
+        <% end %>
       </div>
     <% else %>
       <div>

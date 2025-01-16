@@ -1,11 +1,25 @@
 <nav class="no-print debug-pink">
   <% if authenticated? %>
-    <%= link_to "Clients", clients_path %>
-    <%= link_to "Invoices", invoices_path %>
-    <%= link_to "Statistics", statistics_path %>
-    <%= link_to "Profile", profile_path %>
-    <%= link_to "Logout", session_path, data: { turbo_method: :delete } %>
-    <div>Logged in as <%= Current.user.email_address %></div>
+    <%= link_to clients_path do %>
+      <%= image_tag "users.svg" %>
+      <span>Clients</span>
+    <% end %>
+    <%= link_to invoices_path do %>
+      <%= image_tag "files.svg" %>
+      <span>Invoices</span>
+    <% end %>
+    <%= link_to statistics_path do %>
+      <%= image_tag "chart.svg" %>
+      <span>Statistics</span>
+    <% end %>
+    <%= link_to profile_path do %>
+      <%= image_tag "user.svg" %>
+      <span>Profile</span>
+    <% end %>
+    <%= link_to session_path, data: { turbo_method: :delete } do %>
+      <%= image_tag "logout.svg" %>
+      <span>Log out (<%= Current.user.email_address %>)</span>
+    <% end %>
   <% else %>
     <%= link_to "Login", new_session_path %>
   <% end %>
