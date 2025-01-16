@@ -11,7 +11,6 @@ class Invoice < ApplicationRecord
     self.update(issued: true)
     self.assign_number!
     self.assign_date!
-    # self.set_items_accounting_date!
   end
 
   def assign_number!
@@ -28,8 +27,4 @@ class Invoice < ApplicationRecord
       item.update(position: index + 1)
     end
   end
-
-  # def set_items_accounting_date!
-  #   invoice_items.each { |item| item.set_accounting_date! }
-  # end
 end
