@@ -1,7 +1,7 @@
   <div class="no-print debug-pink-light invoice-header">
     <% if @invoice.issued? %>
       <div>
-        <h2>Invoice <%= @invoice.number %> for <%= @invoice.client.designation %></h2>
+        <h2>Invoice <%= @invoice.number %> for <%= @invoice.display_client_designation %></h2>
       </div>
       <div>
         <%= link_to root_path, class: "no-print" do %>
@@ -15,7 +15,7 @@
       </div>
     <% else %>
       <div>
-        <h2>Invoice draft for <%= @invoice.client.designation %></h2>
+        <h2>Invoice draft for <%= @invoice.display_client_designation %></h2>
       </div>
       <div>
         <%= link_to root_path, class: "no-print" do %>
@@ -38,26 +38,26 @@
     <div class="invoice-header">
       <div class="debug-grey">
         <div><%= @invoice.display_client_designation %></div>
-        <div><%= [@client.address_line1, @client.address_line2].compact_blank.join(", ") %></div>
-        <div><%= "#{@client.postal_code} #{@client.city}" %></div>
-        <div><%= @client.country %></div>
+        <div><%= [@invoice.display_client_address_line1, @invoice.display_client_address_line2].compact_blank.join(", ") %></div>
+        <div><%= "#{@invoice.display_client_postal_code} #{@invoice.display_client_city}" %></div>
+        <div><%= @invoice.display_client_country %></div>
         <div>
           <% unless @invoice.issued? %>
             <%= link_to edit_client_path(@client) do %>
               <%= image_tag "edit.svg" %>
-              <span>Edit <%= @client.designation %>'s info</span>
+              <span>Edit <%= @invoice.display_client_designation %>'s info</span>
             <% end %>
           <% end %>
         </div>
       </div>
       <div class="debug-grey">
-        <div><%= Current.user.company.designation %></div>
-        <div><%= [Current.user.company.address_line1, Current.user.company.address_line2].compact_blank.join(", ") %></div>
-        <div>Telefon: <%= Current.user.company.phone_number %></div>
-        <div>E-Mail: <%= Current.user.company.email_address %></div>
+        <div><%= @invoice.display_company_designation %></div>
+        <div><%= [@invoice.display_company_address_line1, @invoice.display_company_address_line2].compact_blank.join(", ") %></div>
+        <div>Telefon: <%= @invoice.display_company_phone_number %></div>
+        <div>E-Mail: <%= @invoice.display_company_email_address %></div>
         <div>
           <% unless @invoice.issued? %>
-            <%= link_to edit_company_path(Current.user.company) do %>
+            <%= link_to edit_company_path(@invoice.company) do %>
               <%= image_tag "edit.svg" %>
               <span>Edit my info</span>
             <% end %>
@@ -159,12 +159,12 @@
     Bitte geben Sie die Rechnungsnummer als Verwendungszweck an.
   </div>
   <div>
-    IBAN: <%= @invoice.company.iban %> BIC: <%= @invoice.company.bic %>
+    IBAN: <%= @invoice.display_company_iban %> BIC: <%= @invoice.display_company_bic %>
   </div>
   <table>
     <tbody>
-      <td>Gerichsstand: <%= @invoice.company.jurisdiction %></td>
-      <td>Steuer-Nr.: <%= @invoice.company.vat_number %></td>
+      <td>Gerichsstand: <%= @invoice.display_company_jurisdiction %></td>
+      <td>Steuer-Nr.: <%= @invoice.display_company_vat_number %></td>
     </tbody>
   </table>
 
