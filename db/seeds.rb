@@ -27,8 +27,6 @@ company_details = {
 
 user1.company.update(company_details)
 
-next_invoice_num = 0
-
 puts "Creating clients…"
 client1 = Client.create(
   designation: "Lucas",
@@ -107,7 +105,6 @@ client7 = Client.create(
 
 puts "Creating invoices…"
 invoice1 = Invoice.create(
-  number: next_invoice_num += 1,
   date: Date.today,
   client: client1,
   company: User.last.company
@@ -148,7 +145,6 @@ item3 = InvoiceItem.create(
 )
 
 invoice2 = Invoice.create(
-  number: next_invoice_num += 1,
   date: Date.today,
   client: client1,
   company: User.last.company

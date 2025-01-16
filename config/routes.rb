@@ -9,9 +9,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "invoices#index"
+
   # Authentication routes
   resource :session
   resources :passwords, param: :token
+
   # Application routes
   get "profile", to: "companies#profile"
   get "statistics", to: "companies#statistics"

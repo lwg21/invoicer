@@ -11,7 +11,11 @@
 
 <% @drafts.each do |invoice| %>
   <div class="debug-grey">
-    <%= link_to "#{invoice.client.designation} - DRAFT", invoice_path(invoice) %>
+    <%= link_to invoice_path(invoice) do %>
+      <span>DRAFT - <%= invoice.client.designation %> </span>
+      <span><%= number_to_currency(invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></span>
+      <span>(<%= invoice.invoice_items.length %> lines)</span>
+    <% end %>
     <%= link_to invoice_path(invoice), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
       <%= image_tag "trash.svg" %>
       <span>Delete draft</span>
@@ -24,8 +28,13 @@
 <% end %>
 
 <% @issued_invoices.each do |invoice| %>
-  <div class="debug-grey">
-    <%= link_to "#{invoice.client.designation} - #{invoice.number}", invoice_path(invoice) %>
-    <%= number_to_currency(invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %>
-  </div>
+  <%= link_to invoice_path(invoice) do %>
+    <div class="debug-grey">
+      <span><%= invoice.number.to_s.rjust(4, "0") %></span>
+      <span><%= invoice.date %></span>
+      <span><%= invoice.client.designation %></span>
+      <span><%= number_to_currency(invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></span>
+      <span>(<%= invoice.invoice_items.length %> lines)</span>
+    </div>
+  <% end %>
 <% end %>
