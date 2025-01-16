@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_14_091304) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_16_124156) do
   create_table "clients", force: :cascade do |t|
     t.string "designation"
     t.string "address_line1"
@@ -66,6 +66,25 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_14_091304) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "company_id", null: false
+    t.string "client_designation"
+    t.string "client_address_line1"
+    t.string "client_address_line2"
+    t.string "client_city"
+    t.string "client_postal_code"
+    t.string "client_country"
+    t.string "client_vat_number"
+    t.string "company_designation"
+    t.string "company_address_line1"
+    t.string "company_address_line2"
+    t.string "company_city"
+    t.string "company_postal_code"
+    t.string "company_country"
+    t.string "company_vat_number"
+    t.string "company_phone_number"
+    t.string "company_email_address"
+    t.string "company_iban"
+    t.string "company_bic"
+    t.string "company_jurisdiction"
     t.index ["client_id"], name: "index_invoices_on_client_id"
     t.index ["company_id"], name: "index_invoices_on_company_id"
   end

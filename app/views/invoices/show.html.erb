@@ -37,7 +37,7 @@
   <div>
     <div class="invoice-header">
       <div class="debug-grey">
-        <div><%= @client.designation %></div>
+        <div><%= @invoice.display_client_designation %></div>
         <div><%= [@client.address_line1, @client.address_line2].compact_blank.join(", ") %></div>
         <div><%= "#{@client.postal_code} #{@client.city}" %></div>
         <div><%= @client.country %></div>

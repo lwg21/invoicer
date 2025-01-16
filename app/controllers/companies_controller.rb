@@ -25,10 +25,18 @@ class CompaniesController < ApplicationController
 
   def company_params
     params.require(:company).permit(
-      :designation, :address_line1, :address_line2,
-      :city, :postal_code, :country,
-      :vat_number, :phone_number, :email_address,
-      :iban, :bic, :jurisdiction
+      :designation,
+      :address_line1,
+      :address_line2,
+      :city,
+      :postal_code,
+      :country,
+      :vat_number,
+      :phone_number,
+      :email_address,
+      :iban,
+      :bic,
+      :jurisdiction
     )
   end
 end
