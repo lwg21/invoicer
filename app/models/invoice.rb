@@ -2,6 +2,9 @@ class Invoice < ApplicationRecord
   belongs_to :client
   belongs_to :company
   has_many :invoice_items, dependent: :destroy
+  has_many :mentions, dependent: :destroy
+
+  after_create :add_default_mentions
 
   SNAPSHOT_REFS = {
     client: [
@@ -79,5 +82,11 @@ class Invoice < ApplicationRecord
       end
     end
     self.update(snapshot_data)
+  end
+
+  def add_default_mentions
+    self.mentions.create(text: "Lehrtätigkeit im Fach: X.")
+    self.mentions.create(text: "Der ausgewiesene Betrag enthält keine Umsatzsteuer. Umsatzsteuerbefreiung gemäß § 4 Nummer 21 b Umsatzsteuergesetz.")
+    self.mentions.create(text: "Ich bitte Sie den Rechnungsbetrag auf mein unten angegebenes Konto zu überweisen. Bitte geben Sie die Rechnungsnummer als Verwendungszweck an.")
   end
 end

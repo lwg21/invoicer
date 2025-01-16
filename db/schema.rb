@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_16_124156) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_16_184630) do
   create_table "clients", force: :cascade do |t|
     t.string "designation"
     t.string "address_line1"
@@ -90,6 +90,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_16_124156) do
     t.index ["company_id"], name: "index_invoices_on_company_id"
   end
 
+  create_table "mentions", force: :cascade do |t|
+    t.integer "invoice_id", null: false
+    t.integer "position"
+    t.string "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invoice_id"], name: "index_mentions_on_invoice_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "ip_address"
@@ -111,5 +120,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_16_124156) do
   add_foreign_key "invoice_items", "invoices"
   add_foreign_key "invoices", "clients"
   add_foreign_key "invoices", "companies"
+  add_foreign_key "mentions", "invoices"
   add_foreign_key "sessions", "users"
 end

@@ -145,24 +145,11 @@
 
   <h3 class="align-right">Rechnungsbetrag: <%= number_to_currency(@invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></h3>
 
-  <div>
-    Lehrtätigkeit im Fach: X
-  </div>
-  <div>
-    Der ausgewiesene Betrag enthält keine Umsatzsteuer. Umsatzsteuerbefreiung gemäß § 4 Nummer 21 b
-    Umsatzsteuergesetz.
-  </div>
-  <div>
-    Ich bitte Sie den Rechnungsbetrag auf mein unten angegebenes Konto zu überweisen.
-    Bitte geben Sie die Rechnungsnummer als Verwendungszweck an.
-  </div>
-  <div>
-    IBAN: <%= @invoice.display_company_iban %> BIC: <%= @invoice.display_company_bic %>
-  </div>
-  <table>
-    <tbody>
-      <td>Gerichsstand: <%= @invoice.display_company_jurisdiction %></td>
-      <td>Steuer-Nr.: <%= @invoice.display_company_vat_number %></td>
-    </tbody>
-  </table>
+  <% @invoice.mentions.order(position: :asc).each do |mention| %>
+    <div><%= mention.text %></div>
+  <% end %>
+
+  <div>IBAN: <%= @invoice.display_company_iban %> BIC: <%= @invoice.display_company_bic %></div>
+  <div>Gerichsstand: <%= @invoice.display_company_jurisdiction %></div>
+  <div>Steuer-Nr.: <%= @invoice.display_company_vat_number %></div>
 <% end %>
