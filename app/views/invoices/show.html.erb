@@ -1,80 +1,79 @@
-  <div class="no-print debug-pink-light invoice-header">
-    <% if @invoice.issued? %>
-      <div>
-        <h2>Invoice <%= @invoice.number %> for <%= @invoice.display_client_designation %></h2>
-      </div>
-      <div>
-        <%= link_to root_path, class: "no-print" do %>
-          <%= image_tag "left.svg" %>
-          <span>Back to invoices</span>
-        <% end %>
-        <%= link_to "", class: "no-print", onclick: "window.print()" do %>
-          <%= image_tag "printer.svg" %>
-          <span>Print invoice</span>
-        <% end %>
-      </div>
-    <% else %>
-      <div>
-        <h2>Invoice draft for <%= @invoice.display_client_designation %></h2>
-      </div>
-      <div>
-        <%= link_to root_path, class: "no-print" do %>
-          <%= image_tag "left.svg" %>
-          <span>Back to invoices</span>
-        <% end %>
-        <%= link_to invoice_path(@invoice), class: "no-print", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
-          <%= image_tag "trash.svg" %>
-          <span>Delete draft</span>
-        <% end %>
-        <%= link_to issue_invoice_path(@invoice), class: "no-print", data: { turbo_method: :patch, turbo_confirm: "Are you sure?" } do %>
-          <%= image_tag "file-check.svg" %>
-          <span>Issue invoice</span>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-
-  <div>
-    <div class="invoice-header">
-      <div class="debug-grey">
-        <div><%= @invoice.display_client_designation %></div>
-        <div><%= [@invoice.display_client_address_line1, @invoice.display_client_address_line2].compact_blank.join(", ") %></div>
-        <div><%= "#{@invoice.display_client_postal_code} #{@invoice.display_client_city}" %></div>
-        <div><%= @invoice.display_client_country %></div>
-        <div>
-          <% unless @invoice.issued? %>
-            <%= link_to edit_client_path(@client) do %>
-              <%= image_tag "edit.svg" %>
-              <span>Edit <%= @invoice.display_client_designation %>'s info</span>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-      <div class="debug-grey">
-        <div><%= @invoice.display_company_designation %></div>
-        <div><%= [@invoice.display_company_address_line1, @invoice.display_company_address_line2].compact_blank.join(", ") %></div>
-        <div>Telefon: <%= @invoice.display_company_phone_number %></div>
-        <div>E-Mail: <%= @invoice.display_company_email_address %></div>
-        <div>
-          <% unless @invoice.issued? %>
-            <%= link_to edit_company_path(@invoice.company) do %>
-              <%= image_tag "edit.svg" %>
-              <span>Edit my info</span>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
+<div class="no-print debug-pink-light invoice-header">
+  <% if @invoice.issued? %>
+    <div>
+      <h2>Invoice <%= @invoice.number %> for <%= @invoice.display_client_designation %></h2>
     </div>
-
-    <div class="invoice-header">
-      <% if @invoice.issued? %>
-        <h3>RECHNUNG Nr. <%= @invoice.number %></h3>
-        <h3><%= @invoice.date %></h3>
-      <% else %>
-        <h3>RECHNUNG Nr. ?</h3>
-        <h3>?</h3>
+    <div>
+      <%= link_to root_path, class: "no-print" do %>
+        <%= image_tag "left.svg" %>
+        <span>Back to invoices</span>
+      <% end %>
+      <%= link_to "", class: "no-print", onclick: "window.print()" do %>
+        <%= image_tag "printer.svg" %>
+        <span>Print invoice</span>
       <% end %>
     </div>
+  <% else %>
+    <div>
+      <h2>Invoice draft for <%= @invoice.display_client_designation %></h2>
+    </div>
+    <div>
+      <%= link_to root_path, class: "no-print" do %>
+        <%= image_tag "left.svg" %>
+        <span>Back to invoices</span>
+      <% end %>
+      <%= link_to invoice_path(@invoice), class: "no-print", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+        <%= image_tag "trash.svg" %>
+        <span>Delete draft</span>
+      <% end %>
+      <%= link_to issue_invoice_path(@invoice), class: "no-print", data: { turbo_method: :patch, turbo_confirm: "Are you sure?" } do %>
+        <%= image_tag "file-check.svg" %>
+        <span>Issue invoice</span>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div class="invoice-header">
+  <div class="debug-grey">
+    <div><%= @invoice.display_client_designation %></div>
+    <div><%= [@invoice.display_client_address_line1, @invoice.display_client_address_line2].compact_blank.join(", ") %></div>
+    <div><%= "#{@invoice.display_client_postal_code} #{@invoice.display_client_city}" %></div>
+    <div><%= @invoice.display_client_country %></div>
+    <div>
+      <% unless @invoice.issued? %>
+        <%= link_to edit_client_path(@client) do %>
+          <%= image_tag "edit.svg" %>
+          <span>Edit <%= @invoice.display_client_designation %>'s info</span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="debug-grey">
+    <div><%= @invoice.display_company_designation %></div>
+    <div><%= [@invoice.display_company_address_line1, @invoice.display_company_address_line2].compact_blank.join(", ") %></div>
+    <div>Telefon: <%= @invoice.display_company_phone_number %></div>
+    <div>E-Mail: <%= @invoice.display_company_email_address %></div>
+    <div>
+      <% unless @invoice.issued? %>
+        <%= link_to edit_company_path(@invoice.company) do %>
+          <%= image_tag "edit.svg" %>
+          <span>Edit my info</span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="invoice-header">
+  <% if @invoice.issued? %>
+    <h3>RECHNUNG Nr. <%= @invoice.number %></h3>
+    <h3><%= @invoice.date %></h3>
+  <% else %>
+    <h3>RECHNUNG Nr. ?</h3>
+    <h3>?</h3>
+  <% end %>
+</div>
 
 <%= turbo_frame_tag dom_id(@invoice) do %>
   <table>
@@ -146,7 +145,6 @@
 
   <h3 class="align-right">Rechnungsbetrag: <%= number_to_currency(@invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></h3>
 
-
   <div>
     Lehrtätigkeit im Fach: X
   </div>
@@ -167,6 +165,4 @@
       <td>Steuer-Nr.: <%= @invoice.display_company_vat_number %></td>
     </tbody>
   </table>
-
-  </div>
 <% end %>
