@@ -11,9 +11,18 @@
         <h2>Invoice draft for <%= @invoice.client.designation %></h2>
       </div>
       <div>
-        <%= link_to "Back to invoices", root_path, class: "no-print" %>
-        <%= link_to "Delete draft", invoice_path(@invoice), class: "no-print", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-        <%= link_to "Issue", issue_invoice_path(@invoice), class: "no-print", data: { turbo_method: :patch, turbo_confirm: "Are you sure?" } %>
+        <%= link_to root_path, class: "no-print" do %>
+          <%= image_tag "left.svg" %>
+          <span>Back to invoices</span>
+        <% end %>
+        <%= link_to invoice_path(@invoice), class: "no-print", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+          <%= image_tag "trash.svg" %>
+          <span>Delete draft</span>
+        <% end %>
+        <%= link_to issue_invoice_path(@invoice), class: "no-print", data: { turbo_method: :patch, turbo_confirm: "Are you sure?" } do %>
+          <%= image_tag "file-check.svg" %>
+          <span>Issue invoice</span>
+        <% end %>
       </div>
     <% end %>
   </div>
@@ -68,6 +77,12 @@
           <td class="align-right"><%= number_to_currency(item.total_price, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></td>
           <% unless @invoice.issued? %>
             <td>
+              <%= link_to increment_invoice_item_path(item, direction: "minus"), data: { turbo_method: :patch } do %>
+                <%= image_tag "minus.svg" %>
+              <% end %>
+              <%= link_to increment_invoice_item_path(item, direction: "plus"), data: { turbo_method: :patch } do %>
+                <%= image_tag "plus.svg" %>
+              <% end %>
               <%= link_to move_invoice_item_path(item, direction: "up"), data: { turbo_method: :patch } do %>
                 <%= image_tag "up.svg" %>
               <% end %>

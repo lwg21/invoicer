@@ -1,6 +1,7 @@
 <h2>Clients</h2>
 <%= link_to new_client_path do %>
   <%= image_tag "plus.svg" %>
+  <span>New client</span>
 <% end %>
 
 
@@ -15,8 +16,14 @@
       <div><%= client.email_address %></div>
       <div><%= client.vat_number %></div>
       <div>
-        <%= link_to "Edit", edit_client_path(client) %>
-        <%= link_to "Invoice #{client.designation}", invoice_client_path(client), data: { turbo_method: :post } %>
+        <%= link_to edit_client_path(client) do %>
+          <%= image_tag "edit.svg" %>
+          <span>Edit info</span>
+        <% end %>
+        <%= link_to invoice_client_path(client), data: { turbo_method: :post } do %>
+          <%= image_tag "file-plus.svg" %>
+          <span><%= "Invoice #{client.designation}" %></span>
+        <% end %>
       </div>
     </div>
   <% end %>

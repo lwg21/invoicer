@@ -1,6 +1,9 @@
 <h2>Invoices</h2>
 
-<%= link_to "New invoice", clients_path %>
+<%= link_to clients_path do %>
+  <%= image_tag "plus.svg" %>
+  <span>New invoice</span>
+<% end %>
 
 <% if @drafts.any? %>
   <h3>Drafts</h3>
@@ -9,7 +12,10 @@
 <% @drafts.each do |invoice| %>
   <div class="debug-grey">
     <%= link_to "#{invoice.client.designation} - DRAFT", invoice_path(invoice) %>
-    <%= link_to "Delete", invoice_path(invoice), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+    <%= link_to invoice_path(invoice), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+      <%= image_tag "trash.svg" %>
+      <span>Delete draft</span>
+    <% end %>
   </div>
 <% end %>
 

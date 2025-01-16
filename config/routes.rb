@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     member do
       post "duplicate"
       patch "move"
+      patch "increment"
     end
   end
 end

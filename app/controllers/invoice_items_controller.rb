@@ -49,6 +49,16 @@ class InvoiceItemsController < ApplicationController
     redirect_to invoice_path(invoice_item.invoice)
   end
 
+  def increment
+    invoice_item = InvoiceItem.find(params[:id])
+    case params[:direction]
+    when "plus" then invoice_item.increment(:quantity)
+    when "minus" then invoice_item.decrement(:quantity)
+    end
+    invoice_item.save
+    redirect_to invoice_path(invoice_item.invoice)
+  end
+
   private
 
   def invoice_item_params
