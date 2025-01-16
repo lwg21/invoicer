@@ -4,6 +4,7 @@ class CreateInvoices < ActiveRecord::Migration[8.0]
       t.integer :number
       t.string :date
       t.boolean :issued, default: false, null: false
+      t.boolean :paid, default: false, null: false
       t.references :client, null: false, foreign_key: true
       t.timestamps
     end

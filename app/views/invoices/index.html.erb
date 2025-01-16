@@ -37,6 +37,8 @@
       <span><%= invoice.display_client_designation %></span>
       <span><%= number_to_currency(invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></span>
       <span>(<%= invoice.invoice_items.length %> lines)</span>
+      <%= image_tag (invoice.paid? ? "square-check.svg" : "square.svg") %>
+      <%= link_to "Pay", pay_invoice_path(invoice), data: { turbo_method: :patch } unless invoice.paid?%>
     </div>
   <% end %>
 <% end %>

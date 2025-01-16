@@ -62,6 +62,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_16_124156) do
     t.integer "number"
     t.string "date"
     t.boolean "issued", default: false, null: false
+    t.boolean "paid", default: false, null: false
     t.integer "client_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

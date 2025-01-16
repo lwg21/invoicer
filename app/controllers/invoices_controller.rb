@@ -16,9 +16,15 @@ class InvoicesController < ApplicationController
   end
 
   def issue
-    @invoice = Invoice.find(params[:id])
-    @invoice.issue!
-    redirect_to invoice_path(@invoice)
+    invoice = Invoice.find(params[:id])
+    invoice.issue!
+    redirect_to invoice_path(invoice)
+  end
+
+  def pay
+    invoice = Invoice.find(params[:id])
+    invoice.update(paid: true) if invoice.issued?
+    redirect_to invoices_path
   end
 
   def destroy
