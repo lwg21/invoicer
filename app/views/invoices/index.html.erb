@@ -9,19 +9,21 @@
   <h3>Drafts</h3>
 <% end %>
 
-<% @drafts.each do |invoice| %>
-  <div class="debug-grey">
-    <%= link_to invoice_path(invoice) do %>
-      <span>DRAFT - <%= invoice.client.designation %> </span>
-      <span><%= number_to_currency(invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></span>
-      <span>(<%= invoice.invoice_items.length %> lines)</span>
-    <% end %>
-    <%= link_to invoice_path(invoice), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
-      <%= image_tag "trash.svg" %>
-      <span>Delete draft</span>
-    <% end %>
-  </div>
-<% end %>
+<div id="drafts-grid">
+  <% @drafts.each do |invoice| %>
+    <div class="debug-grey">
+      <%= link_to invoice_path(invoice) do %>
+        <span>DRAFT - <%= invoice.client.designation %> </span>
+        <span><%= number_to_currency(invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></span>
+        <span>(<%= invoice.invoice_items.length %> lines)</span>
+      <% end %>
+      <%= link_to invoice_path(invoice), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+        <%= image_tag "trash.svg" %>
+        <span>Delete draft</span>
+      <% end %>
+    </div>
+  <% end %>
+</div>
 
 <% if @issued_invoices.any? %>
   <h3>Issued invoices</h3>

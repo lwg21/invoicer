@@ -28,7 +28,7 @@ class CompaniesController < ApplicationController
       :designation, :address_line1, :address_line2,
       :city, :postal_code, :country,
       :vat_number, :phone_number, :email_address,
-      :iban, :bic
+      :iban, :bic, :jurisdiction
     )
   end
 end
