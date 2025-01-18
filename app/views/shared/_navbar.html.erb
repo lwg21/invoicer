@@ -1,26 +1,17 @@
-<nav class="no-print debug-pink">
+<div class="navbar-main">
   <% if authenticated? %>
-    <%= link_to clients_path do %>
-      <%= image_tag "users.svg" %>
-      <span>Clients</span>
-    <% end %>
-    <%= link_to invoices_path do %>
-      <%= image_tag "files.svg" %>
-      <span>Invoices</span>
-    <% end %>
-    <%= link_to statistics_path do %>
-      <%= image_tag "chart.svg" %>
-      <span>Statistics</span>
-    <% end %>
-    <%= link_to profile_path do %>
-      <%= image_tag "user.svg" %>
-      <span>Profile</span>
-    <% end %>
-    <%= link_to session_path, data: { turbo_method: :delete } do %>
-      <%= image_tag "logout.svg" %>
-      <span>Log out (<%= Current.user.email_address %>)</span>
-    <% end %>
-  <% else %>
-    <%= link_to "Login", new_session_path %>
+    <%= render "shared/navbar_item", path: clients_path, image_path: "users.svg", text: "Clients", data: nil %>
+    <%= render "shared/navbar_item", path: invoices_path, image_path: "files.svg", text: "Invoices", data: nil %>
+    <%= render "shared/navbar_item", path: statistics_path, image_path: "chart.svg", text: "Statistics", data: nil %>
+    <%= render "shared/navbar_item", path: profile_path, image_path: "user.svg", text: "Profile", data: nil %>
   <% end %>
-</nav>
+</div>
+<div class="navbar-secondary">
+  <% if authenticated? %>
+    <%# DEBUG %>
+    <div style="margin-right: 20px">Logged in as <%= Current.user.email_address %></div>
+    <%= render "shared/navbar_item", path: session_path, image_path: "logout.svg", text: "Log out", data: { turbo_method: :delete } %>
+  <% else %>
+    <%= render "shared/navbar_item", path: new_session_path, image_path: "login.svg", text: "Log in", data: nil %>
+  <% end %>
+</div>

@@ -1,0 +1,34 @@
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  color: var(--main);
+  background-color: var(--main-light);
+  padding: 20px;
+}
+
+.navbar-container * {
+  color: var(--main);
+}
+
+.navbar-main {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+.navbar-secondary {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.navbar-item:hover {
+  background-color: red;
+}

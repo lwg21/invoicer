@@ -1,27 +1,29 @@
-.align-right {
-  text-align: right;
-}
-
-.debug-grey {
-  background-color: lightgrey;
-}
-
-.debug-pink {
-  background-color: pink;
-}
-
-.debug-pink-light {
-  background-color: lightpink;
-}
-
-.flex {
-  display: flex;
+body {
+  margin: 0;
 }
 
 a {
   text-decoration: none;
 }
 
-div {
-  margin: 5px 0px;
+.flex {
+  display: flex;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.page-container {
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: auto 1fr auto;
+}
+
+.content-container {
+  padding: 20px;
+}
+
+h2 {
+  margin: 1rem 0;
 }
