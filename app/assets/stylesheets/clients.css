@@ -3,3 +3,48 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 10px;
 }
+
+#clients-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#clients-header a {
+  display: flex;
+  align-items: center;
+  padding: 5px 0px;
+  gap: 10px;
+}
+
+.client-card {
+  background-color: var(--main-lighter);
+}
+
+.client-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--main-light);
+  padding: 10px 10px;
+
+  & h3 {
+    margin: 0;
+  }
+}
+
+.client-content {
+  padding: 10px 10px;
+}
+
+.client-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.client-action {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}

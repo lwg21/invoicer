@@ -28,7 +28,3 @@
   align-items: center;
   gap: 5px;
 }
-
-.navbar-item:hover {
-  background-color: red;
-}
