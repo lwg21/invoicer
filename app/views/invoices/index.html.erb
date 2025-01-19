@@ -1,44 +1,31 @@
-<h2>Invoices</h2>
-
-<%= link_to clients_path do %>
-  <%= image_tag "plus.svg" %>
-  <span>New invoice</span>
-<% end %>
-
-<% if @drafts.any? %>
-  <h3>Drafts</h3>
-<% end %>
-
-<div id="drafts-grid">
-  <% @drafts.each do |invoice| %>
-    <div class="debug-grey">
-      <%= link_to invoice_path(invoice) do %>
-        <span>DRAFT - <%= invoice.display_client_designation %> </span>
-        <span><%= number_to_currency(invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></span>
-        <span>(<%= invoice.invoice_items.length %> lines)</span>
-      <% end %>
-      <%= link_to invoice_path(invoice), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
-        <%= image_tag "trash.svg" %>
-        <span>Delete draft</span>
-      <% end %>
-    </div>
+<div class="page-header">
+  <h2>Invoices</h2>
+  <%= link_to clients_path do %>
+    <span>New invoice</span>
+    <%= image_tag "plus.svg" %>
   <% end %>
 </div>
 
-<% if @issued_invoices.any? %>
-  <h3>Issued invoices</h3>
+<% if @drafts.any? %>
+  <h3>Drafts</h3>
+  <div>
+    <% @drafts.each do |invoice| %>
+      <div class="debug-grey">
+        <%= link_to invoice_path(invoice) do %>
+          <span>DRAFT - <%= invoice.display_client_designation %> </span>
+          <span><%= number_to_currency(invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></span>
+          <span>(<%= invoice.invoice_items.length %> lines)</span>
+        <% end %>
+        <%= link_to invoice_path(invoice), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+          <%= image_tag "trash.svg" %>
+          <span>Delete draft</span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 <% end %>
 
-<% @issued_invoices.each do |invoice| %>
-  <%= link_to invoice_path(invoice) do %>
-    <div class="debug-grey">
-      <span><%= invoice.number.to_s.rjust(4, "0") %></span>
-      <span><%= invoice.date %></span>
-      <span><%= invoice.display_client_designation %></span>
-      <span><%= number_to_currency(invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></span>
-      <span>(<%= invoice.invoice_items.length %> lines)</span>
-      <%= image_tag (invoice.paid? ? "square-check.svg" : "square.svg") %>
-      <%= link_to "Pay", pay_invoice_path(invoice), data: { turbo_method: :patch } unless invoice.paid?%>
-    </div>
-  <% end %>
+<% if @issued_invoices.any? %>
+  <h3>Issued invoices</h3>
+  <%= render partial: "invoice", collection: @issued_invoices, as: "invoice" %>
 <% end %>

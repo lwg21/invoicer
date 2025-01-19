@@ -1,13 +1,13 @@
 .navbar-container {
   display: flex;
   justify-content: space-between;
-  color: var(--main);
-  background-color: var(--main-light);
-  padding: 20px;
+  color: black;
+  background-color: #ffd1f7;
+  padding: 20px 200px;
 }
 
 .navbar-container * {
-  color: var(--main);
+  color: black;
 }
 
 .navbar-main {

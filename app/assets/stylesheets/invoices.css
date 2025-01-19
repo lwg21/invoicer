@@ -1,18 +1,44 @@
-#drafts-grid {
+.active-item {
+  background-color: bisque;
+}
+
+.invoice-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgb(219, 219, 219);
+  padding: 7px 0 7px 0;
+}
+
+.invoice-card:last-child {
+  border-bottom: 1px solid rgb(219, 219, 219);
+}
+
+.invoice-card-info {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: 1fr 1fr 4fr 1fr 1fr 1fr;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.pill {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.pill-paid {
+  color: rgb(1, 77, 1);
+  background-color: rgb(103, 193, 103);
+}
+
+.pill-due {
+  color: rgb(77, 1, 1);
+  background-color: rgb(193, 103, 103);
 }
 
 .invoice-header {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.invoice-header>*:nth-child(2) {
-  text-align: right;
-}
-
-.active-item {
-  background-color: bisque;
+  margin-bottom: 30px;
 }

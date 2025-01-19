@@ -1,19 +1,21 @@
 <div class="client-card">
-  <div class="client-header">
+  <%= link_to invoice_client_path(client), class: "client-header", data: { turbo_method: :post } do %>
     <h3><%= client.designation %></h3>
     <div class="client-actions">
-      <%= link_to(edit_client_path(client), class: "client-action") { image_tag "edit.svg" } %>
-      <%= link_to(invoice_client_path(client), class: "client-action", data: { turbo_method: :post }) { image_tag "file-plus.svg" } %>
+      <%= image_tag "file-plus.svg" %>
     </div>
-  </div>
+  <% end %>
   <div class="client-content">
-    <div><%= client.address_line1 %></div>
-    <div><%= client.address_line2 %></div>
-    <div><%= [client.postal_code, client.city].compact_blank.join(" ") %></div>
-    <div><%= client.country %></div>
-    <br>
-    <div><%= client.email_address %></div>
-    <div><%= client.phone_number %></div>
-    <div><%= client.vat_number %></div>
+    <div>
+      <div><%= client.address_line1 %></div>
+      <div><%= client.address_line2 %></div>
+      <div><%= [client.postal_code, client.city].compact_blank.join(" ") %></div>
+      <div><%= client.country %></div>
+      <br>
+      <div><%= client.email_address %></div>
+      <div><%= client.phone_number %></div>
+      <div><%= client.vat_number %></div>
+    </div>
+    <%= link_to(edit_client_path(client), class: "client-action") { image_tag "edit.svg" } %>
   </div>
 </div>

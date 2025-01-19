@@ -1,31 +1,31 @@
 puts "Destroying all records…"
-InvoiceItem.destroy_all
-Invoice.destroy_all
-Client.destroy_all
-User.destroy_all
+# InvoiceItem.destroy_all
+# Invoice.destroy_all
+# Client.destroy_all
+# User.destroy_all
 
-puts "Creating clients…"
-user1 = User.create(
-  email_address: "julia@julia.com",
-  password: "123456"
-)
+# puts "Creating users…"
+# user1 = User.create(
+#   email_address: "julia@julia.com",
+#   password: "123456"
+# )
 
-company_details = {
-  designation: "Julia Julia",
-  address_line1: "Teststr. 99",
-  address_line2: "1. Aufgang, 1. Stock",
-  city: "Hamburg",
-  postal_code: "20000",
-  country: "Germany",
-  vat_number: "12 345 67899",
-  phone_number: "+49 123456789",
-  email_address: "julia@julia.com",
-  iban: "DE00 0000 0000 0000 0000 00",
-  bic: "XXXXXXXXXXX",
-  jurisdiction: "Hamburg"
-}
+# company_details = {
+#   designation: "Julia Julia",
+#   address_line1: "Teststr. 99",
+#   address_line2: "1. Aufgang, 1. Stock",
+#   city: "Hamburg",
+#   postal_code: "20000",
+#   country: "Germany",
+#   vat_number: "12 345 67899",
+#   phone_number: "+49 123456789",
+#   email_address: "julia@julia.com",
+#   iban: "DE00 0000 0000 0000 0000 00",
+#   bic: "XXXXXXXXXXX",
+#   jurisdiction: "Hamburg"
+# }
 
-user1.company.update(company_details)
+# user1.company.update(company_details)
 
 puts "Creating clients…"
 client1 = Client.create(

@@ -1,31 +1,21 @@
 #clients-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 10px;
-}
-
-#clients-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#clients-header a {
-  display: flex;
-  align-items: center;
-  padding: 5px 0px;
-  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
 }
 
 .client-card {
-  background-color: var(--main-lighter);
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: #7c7c7c33 1px 1px 3px 1px;
 }
 
 .client-header {
   display: flex;
   justify-content: space-between;
-  background-color: var(--main-light);
+  background-color: #ffd1f7;
   padding: 10px 10px;
+  border-radius: 8px 8px 0px 0px;
 
   & h3 {
     margin: 0;
@@ -33,6 +23,9 @@
 }
 
 .client-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
   padding: 10px 10px;
 }
 
@@ -43,8 +36,9 @@
 
 .client-action {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 5px;
+}
+
+.client-action img {
+  height: 22px;
 }

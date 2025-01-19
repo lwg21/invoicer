@@ -1,0 +1,19 @@
+<div class="invoice-card"">
+  <%= link_to invoice_path(invoice), class: "invoice-card-info" do %>
+    <div><%= invoice.number.to_s.rjust(4, "0") %></div>
+    <div><%= invoice.date %></div>
+    <div><%= invoice.display_client_designation %></div>
+    <div><%= number_to_currency(invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></div>
+    <div>(<%= invoice.invoice_items.length %> lines)</div>
+    <div>
+      <% if invoice.paid? %>
+        <div class="pill pill-paid">Paid</div>
+      <% else %>
+        <div class="pill pill-due">Due</div>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="invoice-card-actions">
+    <%= link_to "Pay", pay_invoice_path(invoice), data: { turbo_method: :patch } %>
+  </div>
+</div>
