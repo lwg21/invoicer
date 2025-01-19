@@ -1,7 +1,7 @@
 class InvoicesController < ApplicationController
   def index
     invoices = Current.user.company.invoices
-    @drafts = invoices.where(issued: false).order(created_at: :desc)
+    @draft_invoices = invoices.where(issued: false).order(created_at: :desc)
     @issued_invoices = invoices.where(issued: true).order(number: :desc)
   end
 

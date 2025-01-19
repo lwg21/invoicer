@@ -3,7 +3,7 @@
     <div class="page-header">
       <h2>Invoice <%= @invoice.number %> for <%= @invoice.display_client_designation %></h2>
       <div class="page-header-actions">
-        <%= link_to request.referer || root_path, class: "no-print" do %>
+        <%= link_to params[:back_url].presence || root_path, class: "no-print" do %>
           <%= image_tag "left.svg" %>
           <span>Back</span>
         <% end %>
@@ -17,7 +17,7 @@
     <div class="page-header">
       <h2>Invoice draft for <%= @invoice.display_client_designation %></h2>
       <div class="page-header-actions">
-        <%= link_to request.referer || root_path, class: "no-print" do %>
+        <%= link_to params[:back_url].presence || root_path, class: "no-print" do %>
           <%= image_tag "left.svg" %>
           <span>Back</span>
         <% end %>

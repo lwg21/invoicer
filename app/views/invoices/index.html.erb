@@ -6,23 +6,9 @@
   <% end %>
 </div>
 
-<% if @drafts.any? %>
+<% if @draft_invoices.any? %>
   <h3>Drafts</h3>
-  <div>
-    <% @drafts.each do |invoice| %>
-      <div class="debug-grey">
-        <%= link_to invoice_path(invoice) do %>
-          <span>DRAFT - <%= invoice.display_client_designation %> </span>
-          <span><%= number_to_currency(invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></span>
-          <span>(<%= invoice.invoice_items.length %> lines)</span>
-        <% end %>
-        <%= link_to invoice_path(invoice), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
-          <%= image_tag "trash.svg" %>
-          <span>Delete draft</span>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+  <%= render partial: "invoice", collection: @draft_invoices, as: "invoice" %>
 <% end %>
 
 <% if @issued_invoices.any? %>

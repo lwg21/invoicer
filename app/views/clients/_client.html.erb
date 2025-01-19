@@ -1,5 +1,5 @@
 <div class="client-card">
-  <%= link_to invoice_client_path(client), class: "client-header", data: { turbo_method: :post } do %>
+  <%= link_to invoice_client_path(client, back_url: clients_path), class: "client-header", data: { turbo_method: :post } do %>
     <h3><%= client.designation %></h3>
     <div class="client-actions">
       <%= image_tag "file-plus.svg" %>

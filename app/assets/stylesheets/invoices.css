@@ -7,7 +7,7 @@
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid rgb(219, 219, 219);
-  padding: 7px 0 7px 0;
+  padding: 6px 0 6px 0;
 }
 
 .invoice-card:last-child {
@@ -27,18 +27,28 @@
   border-radius: 20px;
   text-align: center;
   font-size: 0.8rem;
+  font-weight: bold;
 }
 
 .pill-paid {
   color: rgb(1, 77, 1);
-  background-color: rgb(103, 193, 103);
+  background-color: rgb(168, 206, 168);
 }
 
 .pill-due {
   color: rgb(77, 1, 1);
-  background-color: rgb(193, 103, 103);
+  background-color: rgb(193, 140, 140);
+}
+
+.pill-draft {
+  color: rgb(61, 61, 61);
+  background-color: rgb(205, 205, 205);
 }
 
 .invoice-header {
   margin-bottom: 30px;
+}
+
+.invoice-card-actions {
+  min-width: 100px;
 }

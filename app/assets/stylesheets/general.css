@@ -1,6 +1,5 @@
 body {
   margin: 0;
-  /* font-size: 16px; */
 }
 
 a {
@@ -38,7 +37,7 @@ a:hover {
 }
 
 .content-container {
-  padding: 50px 200px;
+  padding: 50px 220px;
   background-color: #fafafa;
 }
 

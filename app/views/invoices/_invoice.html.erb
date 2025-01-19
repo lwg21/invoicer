@@ -6,7 +6,9 @@
     <div><%= number_to_currency(invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></div>
     <div>(<%= invoice.invoice_items.length %> lines)</div>
     <div>
-      <% if invoice.paid? %>
+      <% if !invoice.issued? %>
+        <div class="pill pill-draft">Draft</div>
+      <% elsif invoice.paid? %>
         <div class="pill pill-paid">Paid</div>
       <% else %>
         <div class="pill pill-due">Due</div>
@@ -14,6 +16,13 @@
     </div>
   <% end %>
   <div class="invoice-card-actions">
-    <%= link_to "Pay", pay_invoice_path(invoice), data: { turbo_method: :patch } %>
+    <% if !invoice.issued? %>
+      <%= link_to invoice_path(invoice), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+        <%= image_tag "trash.svg" %>
+      <% end %>
+    <% elsif invoice.paid? %>
+    <% else %>
+      <%= link_to "Pay", pay_invoice_path(invoice), data: { turbo_method: :patch } %>
+    <% end %>
   </div>
 </div>
