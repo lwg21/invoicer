@@ -29,7 +29,7 @@ class ClientsController < ApplicationController
   def update
     @client = Client.find(params[:id])
     if @client.update(client_params)
-      redirect_to clients_path
+      redirect_to params[:back_url].presence || clients_path
     else
       render :edit, status: :unprocessable_entity
     end

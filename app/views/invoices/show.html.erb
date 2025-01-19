@@ -3,7 +3,7 @@
     <div class="page-header">
       <h2>Invoice <%= @invoice.number %> for <%= @invoice.display_client_designation %></h2>
       <div class="page-header-actions">
-        <%= link_to root_path, class: "no-print" do %>
+        <%= link_to request.referer || root_path, class: "no-print" do %>
           <%= image_tag "left.svg" %>
           <span>Back</span>
         <% end %>
@@ -17,7 +17,7 @@
     <div class="page-header">
       <h2>Invoice draft for <%= @invoice.display_client_designation %></h2>
       <div class="page-header-actions">
-        <%= link_to root_path, class: "no-print" do %>
+        <%= link_to request.referer || root_path, class: "no-print" do %>
           <%= image_tag "left.svg" %>
           <span>Back</span>
         <% end %>
@@ -42,7 +42,7 @@
     <div><%= @invoice.display_client_country %></div>
     <div>
       <% unless @invoice.issued? %>
-        <%= link_to edit_client_path(@client) do %>
+        <%= link_to edit_client_path(@client, back_url: invoice_path(@invoice)) do %>
           <%= image_tag "edit.svg" %>
           <span>Edit <%= @invoice.display_client_designation %>'s info</span>
         <% end %>
@@ -56,7 +56,7 @@
     <div>E-Mail: <%= @invoice.display_company_email_address %></div>
     <div>
       <% unless @invoice.issued? %>
-        <%= link_to edit_company_path(@invoice.company) do %>
+        <%= link_to edit_company_path(@invoice.company, back_url: invoice_path(@invoice)) do %>
           <span>Edit my info</span>
           <%= image_tag "edit.svg" %>
         <% end %>

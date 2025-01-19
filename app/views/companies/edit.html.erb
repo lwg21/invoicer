@@ -1,6 +1,7 @@
 <h3>Edit <%= @company.user.email_address %>'s company</h3>
 
 <%= form_for @company do |f| %>
+    <%= hidden_field_tag :back_url, params[:back_url] %>
     <div>
       <%= f.label :designation %>
       <%= f.text_field :designation %>
