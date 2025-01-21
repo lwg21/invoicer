@@ -18,6 +18,7 @@ class CompaniesController < ApplicationController
   end
 
   def statistics
+    invoices = Current.user.company.invoices
     @total = Invoice.all.map(&:total).sum
   end
 
