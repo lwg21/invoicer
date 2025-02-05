@@ -1,6 +1,5 @@
 class CompaniesController < ApplicationController
   def profile
-    @test = "Hello world"
     Rails.logger.info "Hello world"
   end
 

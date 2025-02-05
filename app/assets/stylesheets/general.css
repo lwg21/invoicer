@@ -81,3 +81,7 @@ h2 {
   align-items: center;
   min-width: 60px;
 }
+
+#invoice-form {
+  margin: 0px 0px 0px auto;
+}

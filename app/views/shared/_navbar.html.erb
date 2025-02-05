@@ -2,8 +2,8 @@
   <% if authenticated? %>
     <%= render "shared/navbar_item", path: clients_path, image_path: "users.svg", text: "Clients", data: nil %>
     <%= render "shared/navbar_item", path: invoices_path, image_path: "files.svg", text: "Invoices", data: nil %>
-    <%= render "shared/navbar_item", path: statistics_path, image_path: "chart.svg", text: "Statistics", data: nil %>
-    <%= render "shared/navbar_item", path: profile_path, image_path: "user.svg", text: "Profile", data: nil %>
+    <%#= render "shared/navbar_item", path: statistics_path, image_path: "chart.svg", text: "Statistics", data: nil %>
+    <%= render "shared/navbar_item", path: edit_company_path(Current.user.company), image_path: "user.svg", text: "Profile", data: nil %>
   <% end %>
 </div>
 <div class="navbar-secondary">

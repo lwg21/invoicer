@@ -3,7 +3,7 @@
     <div><%= invoice.number.to_s.rjust(4, "0") %></div>
     <div><%= invoice.date %></div>
     <div><%= invoice.display_client_designation %></div>
-    <div><%= number_to_currency(invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></div>
+    <div class="align-right"><%= number_to_currency(invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></div>
     <div>(<%= invoice.invoice_items.length %> lines)</div>
     <div>
       <% if !invoice.issued? %>

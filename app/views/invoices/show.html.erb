@@ -35,7 +35,7 @@
 </div>
 
 <div class="flex-between-top">
-  <div class="debug-bg">
+  <div>
     <div><%= @invoice.display_client_designation %></div>
     <div><%= [@invoice.display_client_address_line1, @invoice.display_client_address_line2].compact_blank.join(", ") %></div>
     <div><%= "#{@invoice.display_client_postal_code} #{@invoice.display_client_city}" %></div>
@@ -49,7 +49,7 @@
       <% end %>
     </div>
   </div>
-  <div class="debug-bg align-right">
+  <div class="align-right">
     <div><%= @invoice.display_company_designation %></div>
     <div><%= [@invoice.display_company_address_line1, @invoice.display_company_address_line2].compact_blank.join(", ") %></div>
     <div>Telefon: <%= @invoice.display_company_phone_number %></div>
@@ -128,21 +128,20 @@
   </table>
 
   <% unless @invoice.issued? %>
-    <%= form_for (params[:edit_item] ? @invoice_item : [@invoice, @invoice_item]), html: { class: "debug-pink" } do |f| %>
-      <h3><%= params[:edit_item] ? "Edit item ##{@invoice_item.position}" : "New item" %></h3>
-      <div>Description: <%= f.text_field :name %></div>
-      <div>Date: <%= f.date_field :date %></div>
-      <div>Amount: <%= f.number_field :quantity %></div>
-      <div>Price: <%= f.number_field :unit_price, step: '0.01' %></div>
-      <div>Total: <%= number_to_currency(@invoice_item.total_price, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></div>
-      <% if params[:edit_item] %>
-        <div><%= f.submit "Edit" %> <%= link_to "Cancel edit", invoice_path(@invoice) %></div>
-      <% else %>
-        <div><%= f.submit "Add" %></div>
-      <% end %>
+  <%= form_for (params[:edit_item] ? @invoice_item : [@invoice, @invoice_item]), html: { id: "invoice-form" } do |f| %>
+    <h3><%= params[:edit_item] ? "Edit item ##{@invoice_item.position}" : "New item" %></h3>
+    <div>Description: <%= f.text_field :name %></div>
+    <div>Date: <%= f.date_field :date %></div>
+    <div>Amount: <%= f.number_field :quantity %></div>
+    <div>Price: <%= f.number_field :unit_price, step: '0.01' %></div>
+    <div>Total: <%= number_to_currency(@invoice_item.total_price, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></div>
+    <% if params[:edit_item] %>
+      <div><%= f.submit "Edit" %> <%= link_to "Cancel edit", invoice_path(@invoice) %></div>
+    <% else %>
+      <div><%= f.submit "Add" %></div>
     <% end %>
   <% end %>
-
+  <% end %>
   <h3 class="align-right">Rechnungsbetrag: <%= number_to_currency(@invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></h3>
 
   <% @invoice.mentions.order(position: :asc).each do |mention| %>

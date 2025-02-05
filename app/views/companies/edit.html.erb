@@ -1,58 +1,45 @@
 <h3>Edit <%= @company.user.email_address %>'s company</h3>
 
 <%= form_for @company do |f| %>
-    <%= hidden_field_tag :back_url, params[:back_url] %>
-    <div>
-      <%= f.label :designation %>
-      <%= f.text_field :designation %>
-    </div>
-    <div>
-      <%= f.label :address_line1 %>
-      <%= f.text_field :address_line1 %>
-    </div>
-    <div>
-      <%= f.label :address_line2 %>
-      <%= f.text_field :address_line2 %>
-    </div>
-    <div>
-      <%= f.label :postal_code %>
-      <%= f.text_field :postal_code %>
-    </div>
-    <div>
-      <%= f.label :city %>
-      <%= f.text_field :city %>
-    </div>
-    <div>
-      <%= f.label :country %>
-      <%= f.text_field :country %>
-    </div>
-    <div>
-      <%= f.label :vat_number %>
-      <%= f.text_field :vat_number %>
-    </div>
-    <div>
-      <%= f.label :phone_number %>
-      <%= f.text_field :phone_number %>
-    </div>
-    <div>
-      <%= f.label :email_address %>
-      <%= f.text_field :email_address %>
-    </div>
-    <div>
-      <%= f.label :iban, "IBAN" %>
-      <%= f.text_field :iban %>
-    </div>
-    <div>
-      <%= f.label :bic, "BIC" %>
-      <%= f.text_field :bic %>
-    </div>
-    <div>
-      <%= f.label :jurisdiction, "Gerichtstand" %>
-      <%= f.text_field :jurisdiction %>
-    </div>
-    <div>
-      <%= f.submit %>
-    </div>
+  <%= hidden_field_tag :back_url, params[:back_url] %>
+
+  <%= f.label :designation %>
+  <%= f.text_field :designation %>
+
+  <%= f.label :address_line1 %>
+  <%= f.text_field :address_line1 %>
+
+  <%= f.label :address_line2 %>
+  <%= f.text_field :address_line2 %>
+
+  <%= f.label :postal_code %>
+  <%= f.text_field :postal_code %>
+
+  <%= f.label :city %>
+  <%= f.text_field :city %>
+
+  <%= f.label :country %>
+  <%= f.text_field :country %>
+
+  <%= f.label :vat_number %>
+  <%= f.text_field :vat_number %>
+
+  <%= f.label :phone_number %>
+  <%= f.text_field :phone_number %>
+
+  <%= f.label :email_address %>
+  <%= f.text_field :email_address %>
+
+  <%= f.label :iban, "IBAN" %>
+  <%= f.text_field :iban %>
+
+  <%= f.label :bic, "BIC" %>
+  <%= f.text_field :bic %>
+
+  <%= f.label :jurisdiction, "Gerichtstand" %>
+  <%= f.text_field :jurisdiction %>
+
+  <%= f.submit %>
 <% end %>
 
 <%= link_to profile_path do %>
