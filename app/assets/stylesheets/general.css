@@ -14,10 +14,9 @@ a:hover {
   display: flex;
 }
 
-.flex-between-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
+.grid-2-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 /*
 .flex-between-center {
@@ -84,4 +83,8 @@ h2 {
 
 #invoice-form {
   margin: 0px 0px 0px auto;
+}
+
+.break-spaces {
+  white-space: break-spaces;
 }

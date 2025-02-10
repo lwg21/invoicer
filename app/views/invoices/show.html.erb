@@ -1,7 +1,7 @@
 <div class="no-print">
   <% if @invoice.issued? %>
     <div class="page-header">
-      <h2>Invoice <%= @invoice.number %> for <%= @invoice.display_client_designation %></h2>
+      <h2>Invoice <%= @invoice.number %> for <%= @invoice.client.name %></h2>
       <div class="page-header-actions">
         <%= link_to params[:back_url].presence || root_path, class: "no-print" do %>
           <%= image_tag "left.svg" %>
@@ -15,7 +15,7 @@
     </div>
   <% else %>
     <div class="page-header">
-      <h2>Invoice draft for <%= @invoice.display_client_designation %></h2>
+      <h2>Invoice draft for <%= @invoice.client.name %></h2>
       <div class="page-header-actions">
         <%= link_to params[:back_url].presence || root_path, class: "no-print" do %>
           <%= image_tag "left.svg" %>
@@ -34,44 +34,41 @@
   <% end %>
 </div>
 
-<div class="flex-between-top">
+<div class="grid-2-cols">
   <div>
-    <div><%= @invoice.display_client_designation %></div>
-    <div><%= [@invoice.display_client_address_line1, @invoice.display_client_address_line2].compact_blank.join(", ") %></div>
-    <div><%= "#{@invoice.display_client_postal_code} #{@invoice.display_client_city}" %></div>
-    <div><%= @invoice.display_client_country %></div>
     <div>
       <% unless @invoice.issued? %>
         <%= link_to edit_client_path(@client, back_url: invoice_path(@invoice)) do %>
           <%= image_tag "edit.svg" %>
-          <span>Edit <%= @invoice.display_client_designation %>'s info</span>
+          <span>Edit</span>
         <% end %>
       <% end %>
     </div>
+    <div class="break-spaces"><%= @invoice.display_client_details %></div>
   </div>
   <div class="align-right">
-    <div><%= @invoice.display_company_designation %></div>
-    <div><%= [@invoice.display_company_address_line1, @invoice.display_company_address_line2].compact_blank.join(", ") %></div>
-    <div>Telefon: <%= @invoice.display_company_phone_number %></div>
-    <div>E-Mail: <%= @invoice.display_company_email_address %></div>
     <div>
       <% unless @invoice.issued? %>
         <%= link_to edit_company_path(@invoice.company, back_url: invoice_path(@invoice)) do %>
-          <span>Edit my info</span>
+          <span>Edit</span>
           <%= image_tag "edit.svg" %>
         <% end %>
       <% end %>
     </div>
+    <div><%= @invoice.display_company_designation %></div>
+    <div><%= [@invoice.display_company_address_line1, @invoice.display_company_address_line2].compact_blank.join(", ") %></div>
+    <div>Telefon: <%= @invoice.display_company_phone_number %></div>
+    <div>E-Mail: <%= @invoice.display_company_email_address %></div>
   </div>
 </div>
 
-<div class="flex-between-top">
+<div class="grid-2-cols">
   <% if @invoice.issued? %>
     <h3>RECHNUNG Nr. <%= @invoice.number %></h3>
-    <h3><%= @invoice.date %></h3>
+    <h3 class="align-right"><%= @invoice.date %></h3>
   <% else %>
     <h3>RECHNUNG Nr. ?</h3>
-    <h3>?</h3>
+    <h3 class="align-right">?</h3>
   <% end %>
 </div>
 

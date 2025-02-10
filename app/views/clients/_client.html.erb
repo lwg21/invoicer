@@ -1,16 +1,13 @@
 <div class="client-card">
   <%= link_to invoice_client_path(client, back_url: clients_path), class: "client-header", data: { turbo_method: :post } do %>
-    <h3><%= client.designation %></h3>
+    <h3><%= client.name %></h3>
     <div class="client-actions">
       <%= image_tag "file-plus.svg" %>
     </div>
   <% end %>
   <div class="client-content">
     <div>
-      <div><%= client.address_line1 %></div>
-      <div><%= client.address_line2 %></div>
-      <div><%= [client.postal_code, client.city].compact_blank.join(" ") %></div>
-      <div><%= client.country %></div>
+      <div class="break-spaces"><%= client.details %></div>
       <br>
       <div><%= client.email_address %></div>
       <div><%= client.phone_number %></div>

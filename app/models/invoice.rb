@@ -8,12 +8,7 @@ class Invoice < ApplicationRecord
 
   SNAPSHOT_REFS = {
     client: [
-      "designation",
-      "address_line1",
-      "address_line2",
-      "city",
-      "postal_code",
-      "country",
+      "details",
       "vat_number"
     ],
     company: [
@@ -85,7 +80,7 @@ class Invoice < ApplicationRecord
   end
 
   def add_default_mentions
-    self.mentions.create(text: "Lehrtätigkeit im Fach: X.")
+    self.mentions.create(text: "Lehrtätigkeit im Fach: Klavier und Gesang.")
     self.mentions.create(text: "Der ausgewiesene Betrag enthält keine Umsatzsteuer. Umsatzsteuerbefreiung gemäß § 4 Nummer 21 b Umsatzsteuergesetz.")
     self.mentions.create(text: "Ich bitte Sie den Rechnungsbetrag auf mein unten angegebenes Konto zu überweisen. Bitte geben Sie die Rechnungsnummer als Verwendungszweck an.")
   end

@@ -10,19 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_16_184630) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_10_190818) do
   create_table "clients", force: :cascade do |t|
-    t.string "designation"
-    t.string "address_line1"
-    t.string "address_line2"
-    t.string "city"
-    t.string "postal_code"
-    t.string "country"
+    t.string "details"
     t.string "vat_number"
     t.string "phone_number"
     t.string "email_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -67,12 +63,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_16_184630) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "company_id", null: false
-    t.string "client_designation"
-    t.string "client_address_line1"
-    t.string "client_address_line2"
-    t.string "client_city"
-    t.string "client_postal_code"
-    t.string "client_country"
+    t.string "client_details"
     t.string "client_vat_number"
     t.string "company_designation"
     t.string "company_address_line1"

@@ -1,6 +1,6 @@
 class ClientsController < ApplicationController
   def index
-    @clients = Client.all.order(designation: :asc)
+    @clients = Client.all.order(name: :asc)
 
     #   @clients = Client
     # .joins(:invoices)
@@ -48,10 +48,6 @@ class ClientsController < ApplicationController
   private
 
   def client_params
-    params.require(:client).permit(
-      :designation, :address_line1, :address_line2,
-      :city, :postal_code, :country, :vat_number,
-      :phone_number, :email_address
-    )
+    params.require(:client).permit(:name, :details, :vat_number, :phone_number, :email_address)
   end
 end
