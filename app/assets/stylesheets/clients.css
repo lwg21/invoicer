@@ -14,9 +14,11 @@
 .client-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: var(--debug);
   padding: 10px 10px;
   border-radius: 5px 5px 0px 0px;
+  min-height: 40px;
 
   & h3 {
     margin: 0;
@@ -32,14 +34,9 @@
 
 .client-actions {
   display: flex;
-  gap: 8px;
-}
-
-.client-action {
-  display: flex;
   align-items: center;
 }
 
-.client-action img {
+.client-actions img {
   height: 22px;
 }
