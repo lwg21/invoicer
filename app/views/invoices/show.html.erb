@@ -57,6 +57,7 @@
     </div>
     <div><%= @invoice.display_company_designation %></div>
     <div><%= [@invoice.display_company_address_line1, @invoice.display_company_address_line2].compact_blank.join(", ") %></div>
+    <div><%= @invoice.display_company_postal_code %>, <%= @invoice.display_company_city %></div>
     <div>Telefon: <%= @invoice.display_company_phone_number %></div>
     <div>E-Mail: <%= @invoice.display_company_email_address %></div>
   </div>

@@ -9,7 +9,7 @@
 <div class="navbar-secondary">
   <% if authenticated? %>
     <%# DEBUG %>
-    <div style="margin-right: 20px">Logged in as <%= Current.user.email_address %></div>
+    <div style="margin-right: 20px">Logged in as <%= Current.user.email_address.split("@").first %></div>
     <%= render "shared/navbar_item", path: session_path, image_path: "logout.svg", text: "Log out", data: { turbo_method: :delete } %>
   <% else %>
     <%= render "shared/navbar_item", path: new_session_path, image_path: "login.svg", text: "Log in", data: nil %>
