@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_10_190818) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_05_163602) do
   create_table "clients", force: :cascade do |t|
     t.string "details"
     t.string "vat_number"
@@ -35,9 +35,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_10_190818) do
     t.string "iban"
     t.string "bic"
     t.string "jurisdiction"
-    t.integer "next_available_number", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "details"
     t.index ["user_id"], name: "index_companies_on_user_id"
   end
 
@@ -77,6 +77,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_10_190818) do
     t.string "company_iban"
     t.string "company_bic"
     t.string "company_jurisdiction"
+    t.string "company_details"
     t.index ["client_id"], name: "index_invoices_on_client_id"
     t.index ["company_id"], name: "index_invoices_on_company_id"
   end
