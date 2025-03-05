@@ -1,7 +1,7 @@
 <%= form_for client do |f| %>
     <%= hidden_field_tag :back_url, params[:back_url] %>
     <div>
-      <%= f.label :name, "Nickname (internal)" %>
+      <%= f.label :name, "Nickname (does not appear on invoice)" %>
       <%= f.text_field :name %>
     </div>
     <div>
