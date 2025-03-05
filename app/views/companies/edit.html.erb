@@ -3,23 +3,8 @@
 <%= form_for @company do |f| %>
   <%= hidden_field_tag :back_url, params[:back_url] %>
 
-  <%= f.label :designation %>
-  <%= f.text_field :designation %>
-
-  <%= f.label :address_line1 %>
-  <%= f.text_field :address_line1 %>
-
-  <%= f.label :address_line2 %>
-  <%= f.text_field :address_line2 %>
-
-  <%= f.label :postal_code %>
-  <%= f.text_field :postal_code %>
-
-  <%= f.label :city %>
-  <%= f.text_field :city %>
-
-  <%= f.label :country %>
-  <%= f.text_field :country %>
+  <%= f.label :details, "Company name & address" %>
+  <%= f.text_area :details, rows: 8 %>
 
   <%= f.label :vat_number %>
   <%= f.text_field :vat_number %>
