@@ -6,9 +6,6 @@ def random_date_same_month(date)
   rand(date.beginning_of_month..date.end_of_month)
 end
 
-def set_realistic_invoice_date(invoice)
-end
-
 puts "Destroying all records…"
 InvoiceItem.destroy_all
 Invoice.destroy_all
@@ -28,12 +25,7 @@ user2 = User.create(
 
 puts "Updating copany details…"
 user1.company.update(
-  designation: "Julia Julia",
-  address_line1: "Teststr. 99",
-  address_line2: "1. Aufgang, 1. Stock",
-  city: "Hamburg",
-  postal_code: "20000",
-  country: "Germany",
+  details: "Julia Julia\nTeststr. 99, 1. Aufgang, 1. Stock\n20000 Hamburg\nGermany",
   vat_number: "12 345 67899",
   phone_number: "+49 123456789",
   email_address: "julia@julia.com",
@@ -43,12 +35,7 @@ user1.company.update(
 )
 
 user2.company.update(
-  designation: "Lucas Lucas",
-  address_line1: "Rue du test 99",
-  address_line2: "Cour droite",
-  city: "Paris",
-  postal_code: "10000",
-  country: "France",
+  details: "Lucas Lucas\nRue du test 99, Cour droite\n10000 Paris\nFrance",
   vat_number: "12 345 67899",
   phone_number: "+33 123456789",
   email_address: "l@l.com",
@@ -64,7 +51,7 @@ client1 = Client.create(
   vat_number: "FR00000000000",
   phone_number: "+33600000000",
   email_address: "lucas@lucas.com"
-  )
+)
 
 client2 = Client.create(
   name: "Josh",
@@ -72,7 +59,7 @@ client2 = Client.create(
   vat_number: "FR00000000000",
   phone_number: "+33600000000",
   email_address: "josh@josh.com"
-  )
+)
 
 client3 = Client.create(
   name: "Beatrice",
@@ -117,7 +104,7 @@ Invoice.all.each do |invoice|
       **(items.sample),
       quantity: rand(1..12),
       date: noizy_dates.sample
-      )
+    )
   end
 end
 
