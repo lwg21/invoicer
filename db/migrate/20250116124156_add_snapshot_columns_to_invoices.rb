@@ -1,6 +1,5 @@
 class AddSnapshotColumnsToInvoices < ActiveRecord::Migration[8.0]
   def change
-    # Client
     add_column :invoices, :client_designation, :string
     add_column :invoices, :client_address_line1, :string
     add_column :invoices, :client_address_line2, :string
@@ -9,7 +8,6 @@ class AddSnapshotColumnsToInvoices < ActiveRecord::Migration[8.0]
     add_column :invoices, :client_country, :string
     add_column :invoices, :client_vat_number, :string
 
-    # Company
     add_column :invoices, :company_designation, :string
     add_column :invoices, :company_address_line1, :string
     add_column :invoices, :company_address_line2, :string
