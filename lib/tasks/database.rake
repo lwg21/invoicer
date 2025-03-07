@@ -36,4 +36,23 @@ namespace :db do
     `scp "root@#{remote_host}:#{temp_backup_file}" "#{backup_file}"`
     puts color("Backup successfully copied!")
   end
+
+  desc "Remove any SQLite3 files from /tmp folder from remote and docker container"
+  task :cleanup do
+    app_name = Rails.application.class.module_parent_name.downcase
+    puts "Rails app name: #{color(app_name)}"
+
+    remote_host = Rails.application.credentials["remote_host"]
+    puts "Remote host IP address: #{color(remote_host)}"
+
+    container_id = `ssh root@#{remote_host} "docker ps -f 'name=#{app_name}' -q"`.strip
+    puts "Container ID: #{color(container_id)}"
+
+    puts "\nCleaning remote /tmp…"
+    `ssh root@#{remote_host} 'rm /tmp/*.sqlite3'`
+
+    puts "\nCleaning container /tmp…"
+    `ssh root@#{remote_host} "docker exec #{container_id} sh -c 'rm /tmp/*.sqlite3'"`
+    puts color("Done!")
+  end
 end
