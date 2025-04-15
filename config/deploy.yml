@@ -7,7 +7,7 @@ image: lwg21/invoicer
 # Deploy to these servers.
 servers:
   web:
-    - ***REMOVED***
+    - invoicer.lwg.me
   # job:
   #   hosts:
   #     - 192.168.0.1
