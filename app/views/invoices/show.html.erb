@@ -44,7 +44,7 @@
         <% end %>
       <% end %>
     </div>
-    <div class="break-spaces"><%= @invoice.display_client_details %></div>
+    <div class="break-spaces"><%= @invoice.client_field(:details) %></div>
   </div>
   <div class="align-right">
     <div>
@@ -55,9 +55,9 @@
         <% end %>
       <% end %>
     </div>
-    <div class="break-spaces"><%= @invoice.display_company_details %></div>
-    <div>Telefon: <%= @invoice.display_company_phone_number %></div>
-    <div>E-Mail: <%= @invoice.display_company_email_address %></div>
+    <div class="break-spaces"><%= @invoice.company_field(:details) %></div>
+    <div>Telefon: <%= @invoice.company_field(:phone_number) %></div>
+    <div>E-Mail: <%= @invoice.company_field(:email_address) %></div>
   </div>
 </div>
 
@@ -144,7 +144,7 @@
     <div><%= mention.text %></div>
   <% end %>
 
-  <div>IBAN: <%= @invoice.display_company_iban %> BIC: <%= @invoice.display_company_bic %></div>
-  <div>Gerichsstand: <%= @invoice.display_company_jurisdiction %></div>
-  <div>Steuer-Nr.: <%= @invoice.display_company_vat_number %></div>
+  <div>IBAN: <%= @invoice.company_field(:iban) %> BIC: <%= @invoice.company_field(:bic) %></div>
+  <div>Gerichsstand: <%= @invoice.company_field(:jurisdiction) %></div>
+  <div>Steuer-Nr.: <%= @invoice.company_field(:vat_number) %></div>
 <% end %>

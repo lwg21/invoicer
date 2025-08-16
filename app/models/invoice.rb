@@ -3,33 +3,11 @@ class Invoice < ApplicationRecord
   belongs_to :company
   has_many :invoice_items, dependent: :destroy
   has_many :mentions, dependent: :destroy
-
   after_create :add_default_mentions
 
-  SNAPSHOT_REFS = {
-    client: [
-      "details",
-      "vat_number"
-    ],
-    company: [
-      "details",
-      "vat_number",
-      "phone_number",
-      "email_address",
-      "iban",
-      "bic",
-      "jurisdiction"
-    ]
-  }
-
-  # Reader methods for snapshotted columns
-  SNAPSHOT_REFS.each do |table, columns|
-    columns.each do |column|
-      define_method("display_#{table}_#{column}") do
-        issued? ? public_send("#{table}_#{column}") : public_send(table).public_send(column)
-      end
-    end
-  end
+  include Snapshotable
+  set_snapshot_fields client: %i[details vat_number],
+                      company: %i[details vat_number phone_number email_address iban bic jurisdiction]
 
   def total
     self.invoice_items.sum { |item| item.total_price }
@@ -39,7 +17,7 @@ class Invoice < ApplicationRecord
     self.update(issued: true)
     self.assign_number!
     self.assign_date!
-    self.snapshot_data!
+    self.take_snapshot!
   end
 
   # TEMP DEBUG
@@ -61,17 +39,6 @@ class Invoice < ApplicationRecord
     invoice_items.order(position: :asc).each_with_index do |item, index|
       item.update(position: index + 1)
     end
-  end
-
-  # Snapshot data from associated tables upon issuance of invoice
-  def snapshot_data!
-    snapshot_data = {}
-    SNAPSHOT_REFS.each do |table, columns|
-      columns.each do |column|
-        snapshot_data["#{table}_#{column}"] = public_send(table).public_send(column)
-      end
-    end
-    self.update(snapshot_data)
   end
 
   def add_default_mentions
