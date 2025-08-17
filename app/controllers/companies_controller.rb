@@ -5,6 +5,7 @@ class CompaniesController < ApplicationController
 
   def edit
     @company = Company.find(params[:id])
+    @mention_default = MentionDefault.new
   end
 
   def update

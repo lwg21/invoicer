@@ -26,6 +26,8 @@ class Invoice < ApplicationRecord
     self.update(number: nil, date: nil)
   end
 
+  private
+
   def assign_number!
     last_number = self.company.invoices.maximum(:number) || 0
     self.update(number: last_number + 1)
@@ -42,8 +44,8 @@ class Invoice < ApplicationRecord
   end
 
   def add_default_mentions
-    self.mentions.create(text: "Lehrtätigkeit im Fach: Klavier und Gesang.")
-    self.mentions.create(text: "Der ausgewiesene Betrag enthält keine Umsatzsteuer. Umsatzsteuerbefreiung gemäß § 4 Nummer 21 b Umsatzsteuergesetz.")
-    self.mentions.create(text: "Ich bitte Sie den Rechnungsbetrag auf mein unten angegebenes Konto zu überweisen. Bitte geben Sie die Rechnungsnummer als Verwendungszweck an.")
+    company.mention_defaults.each do |default|
+      self.mentions.create(text: default.text)
+    end
   end
 end

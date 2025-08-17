@@ -1,4 +1,4 @@
-<h3>Edit <%= @company.user.email_address %>'s company</h3>
+<h3>Edit your company information</h3>
 
 <%= form_for @company do |f| %>
   <%= hidden_field_tag :back_url, params[:back_url] %>
@@ -25,6 +25,32 @@
   <%= f.text_field :jurisdiction %>
 
   <%= f.submit %>
+<% end %>
+
+<h3>Edit the default mentions that appear on new invoices</h3>
+
+<%= turbo_frame_tag :mention_defaults do %>
+  <% @company.mention_defaults.each do |mention| %>
+    <%= form_for mention do |f| %>
+      <%= f.text_area :text %>
+      <div class="flex">
+        <%= f.button type: :submit, name: :commit, value: :edit do %>
+          <%= image_tag "check.svg" %>
+        <% end %>
+        <%= f.button type: :submit, name: :commit, value: :cancel do %>
+          <%= image_tag "x.svg" %>
+        <% end %>
+        <%= f.button type: :submit, name: :commit, value: :destroy, data: { turbo_confirm: "Are you sure?" } do %>
+          <%= image_tag "trash.svg" %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= form_for [@company, @mention_default] do |f| %>
+    <%= f.text_area :text %>
+    <%= f.submit "Add mention" %>
+  <% end %>
 <% end %>
 
 <%= link_to profile_path do %>

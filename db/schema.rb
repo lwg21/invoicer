@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_05_190904) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_17_080335) do
   create_table "clients", force: :cascade do |t|
     t.string "details"
     t.string "vat_number"
@@ -70,6 +70,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_190904) do
     t.index ["company_id"], name: "index_invoices_on_company_id"
   end
 
+  create_table "mention_defaults", force: :cascade do |t|
+    t.string "text"
+    t.integer "company_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_mention_defaults_on_company_id"
+  end
+
   create_table "mentions", force: :cascade do |t|
     t.integer "invoice_id", null: false
     t.integer "position"
@@ -100,6 +108,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_190904) do
   add_foreign_key "invoice_items", "invoices"
   add_foreign_key "invoices", "clients"
   add_foreign_key "invoices", "companies"
+  add_foreign_key "mention_defaults", "companies"
   add_foreign_key "mentions", "invoices"
   add_foreign_key "sessions", "users"
 end

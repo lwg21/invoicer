@@ -17,10 +17,15 @@ Rails.application.routes.draw do
   # Application routes
   get "profile", to: "companies#profile"
   get "statistics", to: "companies#statistics"
-  resources :companies, only: [ :edit, :update ]
+
+  resources :companies, only: [ :edit, :update ] do
+    resources :mention_defaults, only: [ :create ]
+  end
+
   resources :clients, only: [ :index, :new, :create, :edit, :update ] do
     member { post "invoice" }
   end
+
   resources :invoices, only: [ :index, :show, :destroy ] do
     resources :invoice_items, only: [ :create ]
     resources :mentions, only: [ :create ]
@@ -29,6 +34,7 @@ Rails.application.routes.draw do
       patch "pay"
     end
   end
+
   resources :invoice_items, only: [ :edit, :update, :destroy ] do
     member do
       post "duplicate"
@@ -36,5 +42,7 @@ Rails.application.routes.draw do
       patch "increment"
     end
   end
+
   resources :mentions, only: [ :destroy ]
+  resources :mention_defaults, only: [ :update ]
 end
