@@ -1,4 +1,4 @@
-<h3>Edit your company information</h3>
+<h2>Edit your company information</h2>
 
 <%= form_for @company do |f| %>
   <%= hidden_field_tag :back_url, params[:back_url] %>
@@ -27,30 +27,44 @@
   <%= f.submit %>
 <% end %>
 
-<h3>Edit the default mentions that appear on new invoices</h3>
+<h2>Edit the default mentions appearing on new invoices</h2>
 
-<%= turbo_frame_tag :mention_defaults do %>
-  <% @company.mention_defaults.each do |mention| %>
-    <%= form_for mention do |f| %>
-      <%= f.text_area :text %>
-      <div class="flex">
-        <%= f.button type: :submit, name: :commit, value: :edit do %>
+<% @company.mention_defaults.each do |mention| %>
+  <%= turbo_frame_tag dom_id(mention) do %>
+    <%= form_for mention, html: { class: "form-with-side-buttons" },
+                          data: { controller: "revealer" } do |f| %>
+      <%= f.text_area :text, data: { action: "keyup->revealer#reveal" } %>
+      <div class="side-buttons">
+        <%= f.button type: :submit,
+                     name: :commit,
+                     value: :edit,
+                     class: "green disabled",
+                     data: { revealer_target: "toReveal" } do %>
           <%= image_tag "check.svg" %>
         <% end %>
-        <%= f.button type: :submit, name: :commit, value: :cancel do %>
-          <%= image_tag "x.svg" %>
+        <%= f.button type: :submit,
+                     name: :commit,
+                     value: :cancel,
+                     class: "disabled",
+                     data: { revealer_target: "toReveal" } do %>
+          <%= image_tag "rotate-ccw.svg" %>
         <% end %>
-        <%= f.button type: :submit, name: :commit, value: :destroy, data: { turbo_confirm: "Are you sure?" } do %>
+        <%= f.button type: :submit,
+                     name: :commit,
+                     value: :destroy,
+                     class: "red active",
+                     data: { turbo_confirm: "Are you sure?" } do %>
           <%= image_tag "trash.svg" %>
         <% end %>
       </div>
     <% end %>
   <% end %>
 
-  <%= form_for [@company, @mention_default] do |f| %>
-    <%= f.text_area :text %>
-    <%= f.submit "Add mention" %>
-  <% end %>
+<% end %>
+
+<%= form_for [@company, @mention_default] do |f| %>
+  <%= f.text_area :text %>
+  <%= f.submit "Add mention" %>
 <% end %>
 
 <%= link_to profile_path do %>

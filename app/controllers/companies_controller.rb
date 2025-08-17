@@ -11,7 +11,7 @@ class CompaniesController < ApplicationController
   def update
     @company = Company.find(params[:id])
     if @company.update(company_params)
-      redirect_to params[:back_url].presence || profile_path(@company)
+      redirect_to params[:back_url].presence || edit_company_path(@company)
     else
       render :edit, status: :unprocessable_entity
     end
