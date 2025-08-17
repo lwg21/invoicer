@@ -13,6 +13,7 @@ class InvoicesController < ApplicationController
     else
       @invoice_item = InvoiceItem.new
     end
+    @mention = Mention.new
   end
 
   def issue

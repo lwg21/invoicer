@@ -141,7 +141,19 @@
   <h3 class="align-right">Rechnungsbetrag: <%= number_to_currency(@invoice.total, unit: "€", format: "%n %u", separator: ",", delimiter: " ") %></h3>
 
   <% @invoice.mentions.order(position: :asc).each do |mention| %>
-    <div><%= mention.text %></div>
+    <div>
+      <%= mention.text %>
+      <% unless @invoice.issued? %>
+        <%= link_to "X", mention_path(mention), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% unless @invoice.issued? %>
+    <%= form_for [@invoice, @mention] do |f| %>
+      <%= f.text_area :text %>
+      <%= f.submit "Add" %>
+    <% end %>
   <% end %>
 
   <div>IBAN: <%= @invoice.company_field(:iban) %> BIC: <%= @invoice.company_field(:bic) %></div>

@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   end
   resources :invoices, only: [ :index, :show, :destroy ] do
     resources :invoice_items, only: [ :create ]
+    resources :mentions, only: [ :create ]
     member do
       patch "issue"
       patch "pay"
@@ -35,4 +36,5 @@ Rails.application.routes.draw do
       patch "increment"
     end
   end
+  resources :mentions, only: [ :destroy ]
 end
