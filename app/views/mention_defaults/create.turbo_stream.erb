@@ -1,0 +1,11 @@
+<%= turbo_stream.append :mention_defaults_list do %>
+  <%= turbo_frame_tag dom_id(@mention_default) do %>
+    <%= render partial: "mention_defaults/edit_form",
+               locals: { mention: @mention_default } %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.replace :new_mention_default do %>
+  <%= render partial: "mention_defaults/new_form",
+             locals: { company: @company, mention_default: MentionDefault.new } %>
+<% end %>

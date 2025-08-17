@@ -4,7 +4,11 @@ class MentionDefaultsController < ApplicationController
     @mention_default = MentionDefault.new(text: params[:mention_default][:text])
     @mention_default.company = @company
     @mention_default.save
-    redirect_to edit_company_path(@company)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to edit_company_path(@company) }
+    end
   end
 
   def update

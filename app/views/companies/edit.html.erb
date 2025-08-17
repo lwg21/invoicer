@@ -29,42 +29,16 @@
 
 <h2>Edit the default mentions appearing on new invoices</h2>
 
-<% @company.mention_defaults.each do |mention| %>
-  <%= turbo_frame_tag dom_id(mention) do %>
-    <%= form_for mention, html: { class: "form-with-side-buttons" },
-                          data: { controller: "revealer" } do |f| %>
-      <%= f.text_area :text, data: { action: "keyup->revealer#reveal" } %>
-      <div class="side-buttons">
-        <%= f.button type: :submit,
-                     name: :commit,
-                     value: :edit,
-                     class: "green disabled",
-                     data: { revealer_target: "toReveal" } do %>
-          <%= image_tag "check.svg" %>
-        <% end %>
-        <%= f.button type: :submit,
-                     name: :commit,
-                     value: :cancel,
-                     class: "disabled",
-                     data: { revealer_target: "toReveal" } do %>
-          <%= image_tag "rotate-ccw.svg" %>
-        <% end %>
-        <%= f.button type: :submit,
-                     name: :commit,
-                     value: :destroy,
-                     class: "red active",
-                     data: { turbo_confirm: "Are you sure?" } do %>
-          <%= image_tag "trash.svg" %>
-        <% end %>
-      </div>
+<div id="mention_defaults_list">
+  <% @company.mention_defaults.each do |mention| %>
+    <%= turbo_frame_tag dom_id(mention) do %>
+      <%= render "mention_defaults/edit_form", mention: mention %>
     <% end %>
   <% end %>
+</div>
 
-<% end %>
-
-<%= form_for [@company, @mention_default] do |f| %>
-  <%= f.text_area :text %>
-  <%= f.submit "Add mention" %>
+<%= turbo_frame_tag :new_mention_default do %>
+  <%= render "mention_defaults/new_form", company: @company, mention_default: @mention_default %>
 <% end %>
 
 <%= link_to profile_path do %>

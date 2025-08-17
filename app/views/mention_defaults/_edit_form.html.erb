@@ -1,0 +1,27 @@
+<%= form_for mention, html: { class: "form-with-side-buttons" },
+                          data: { controller: "revealer" } do |f| %>
+  <%= f.text_area :text, data: { action: "keydown->revealer#reveal" } %>
+  <div class="side-buttons">
+    <%= f.button type: :submit,
+                  name: :commit,
+                  value: :edit,
+                  class: "green disabled",
+                  data: { revealer_target: "toReveal" } do %>
+      <%= image_tag "check.svg" %>
+    <% end %>
+    <%= f.button type: :submit,
+                  name: :commit,
+                  value: :cancel,
+                  class: "disabled",
+                  data: { revealer_target: "toReveal" } do %>
+      <%= image_tag "rotate-ccw.svg" %>
+    <% end %>
+    <%= f.button type: :submit,
+                  name: :commit,
+                  value: :destroy,
+                  class: "red active",
+                  data: { turbo_confirm: "Are you sure?" } do %>
+      <%= image_tag "trash.svg" %>
+    <% end %>
+  </div>
+<% end %>
