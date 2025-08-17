@@ -30,14 +30,14 @@
 <h2>Edit the default mentions appearing on new invoices</h2>
 
 <div id="mention_defaults_list">
-  <% @company.mention_defaults.each do |mention| %>
-    <%= turbo_frame_tag dom_id(mention) do %>
-      <%= render "mention_defaults/edit_form", mention: mention %>
+  <% @company.mention_defaults.each do |mention_default| %>
+    <%= tag.div id: dom_id(mention_default) do %>
+      <%= render "mention_defaults/edit_form", mention_default: mention_default %>
     <% end %>
   <% end %>
 </div>
 
-<%= turbo_frame_tag :new_mention_default do %>
+<%= tag.div id: :new_mention_default do %>
   <%= render "mention_defaults/new_form", company: @company, mention_default: @mention_default %>
 <% end %>
 

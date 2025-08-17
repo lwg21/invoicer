@@ -13,16 +13,17 @@ class MentionDefaultsController < ApplicationController
 
   def update
     @mention_default = MentionDefault.find(params[:id])
+
     case params[:commit]
     when "edit"
       @mention_default.update(text: params[:mention_default][:text])
-      flash[:notice] = "Saved"
-    when "cancel"
-      flash[:notice] = "Canceled"
     when "destroy"
       @mention_default.destroy
-      flash[:notice] = "Deleted"
     end
-    redirect_to edit_company_path(@mention_default.company)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to edit_company_path(@mention_default.company) }
+    end
   end
 end

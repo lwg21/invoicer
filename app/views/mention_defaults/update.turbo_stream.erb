@@ -1,0 +1,8 @@
+<% if @mention_default.destroyed? %>
+  <%= turbo_stream.remove dom_id(@mention_default) %>
+<% else %>
+  <%= turbo_stream.update dom_id(@mention_default) do %>
+    <%= render partial: "mention_defaults/edit_form",
+               locals: { mention_default: @mention_default } %>
+  <% end %>
+<% end %>

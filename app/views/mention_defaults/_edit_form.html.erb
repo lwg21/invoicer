@@ -1,4 +1,4 @@
-<%= form_for mention, html: { class: "form-with-side-buttons" },
+<%= form_for mention_default, html: { class: "form-with-side-buttons" },
                           data: { controller: "revealer" } do |f| %>
   <%= f.text_area :text, data: { action: "keydown->revealer#reveal" } %>
   <div class="side-buttons">
