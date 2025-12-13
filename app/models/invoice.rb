@@ -26,6 +26,12 @@ class Invoice < ApplicationRecord
     self.update(number: nil, date: nil)
   end
 
+  def reorder_items!
+    invoice_items.order(position: :asc).each_with_index do |item, index|
+      item.update(position: index + 1)
+    end
+  end
+
   private
 
   def assign_number!
@@ -35,12 +41,6 @@ class Invoice < ApplicationRecord
 
   def assign_date!
     self.update(date: Date.today)
-  end
-
-  def reorder_items!
-    invoice_items.order(position: :asc).each_with_index do |item, index|
-      item.update(position: index + 1)
-    end
   end
 
   def add_default_mentions
